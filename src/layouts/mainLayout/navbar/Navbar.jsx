@@ -24,7 +24,7 @@ const navItems = [
   { value: "Dashboard", route: "/contact" },
 ];
 
-export default function MainLayout(props) {
+export default function Navbar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -56,7 +56,7 @@ export default function MainLayout(props) {
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar component="nav" color="success">
+      <AppBar component="nav">
         <Toolbar>
           <IconButton
             color="inherit"
@@ -83,7 +83,7 @@ export default function MainLayout(props) {
               </NavLink>
             ))}
             <Link to="/register">
-              <Button variant="outlined" sx={{mr: '20px', color: 'white'}} color="secondary">Sign Up</Button>
+              <Button variant="outlined" sx={{mr: '10px'}} color="secondary">Sign Up</Button>
             </Link>
             <Link to="/logIn">
               <Button variant="contained" color="secondary">Sign in</Button>
