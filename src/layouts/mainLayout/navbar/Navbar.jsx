@@ -14,23 +14,30 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Link, NavLink, Outlet } from "react-router-dom";
+import { AuthContext } from "../../../context/AuthProvider";
 
 const drawerWidth = 240;
-const navItems = [
-  { value: "Home", route: "/" },
-  { value: "About", route: "/about" },
-  { value: "Contact", route: "/contact" },
-  { value: "All Test", route: "/allTest" },
-  { value: "Dashboard", route: "/contact" },
-];
 
 export default function Navbar(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const { user } = React.useContext(AuthContext);
+
+  console.log(user)
+
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
+  const navItems = [
+    { value: "Home", route: "/" },
+    { value: "About", route: "/about" },
+    { value: "Contact", route: "/contact" },
+    { value: "All Test", route: "/allTest" },
+    user && { value: "Dashboard", route: "/dashboard" },
+  ];
+
+  console.log(user)
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -77,17 +84,31 @@ export default function Navbar(props) {
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             {navItems.map((item) => (
               <NavLink key={item.value} to={item.route}>
-                <Button sx={{ color: "#fff" }}>
-                  {item.value}
-                </Button>
+                <Button sx={{ color: "#fff" }}>{item.value}</Button>
               </NavLink>
             ))}
-            <Link to="/register">
-              <Button variant="outlined" sx={{mr: '10px'}} color="secondary">Sign Up</Button>
-            </Link>
-            <Link to="/logIn">
-              <Button variant="contained" color="secondary">Sign in</Button>
-            </Link>
+            {user ? (
+              <Button variant="contained" color="secondary">
+                Sign Out
+              </Button>
+            ) : (
+              <>
+                <Link to="/register">
+                  <Button
+                    variant="outlined"
+                    sx={{ mr: "10px" }}
+                    color="secondary"
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
+                <Link to="/logIn">
+                  <Button variant="contained" color="secondary">
+                    Sign in
+                  </Button>
+                </Link>
+              </>
+            )}
           </Box>
         </Toolbar>
       </AppBar>
@@ -113,7 +134,7 @@ export default function Navbar(props) {
       </nav>
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
-        <Outlet/>
+        <Outlet />
       </Box>
     </Box>
   );

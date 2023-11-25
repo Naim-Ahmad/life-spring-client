@@ -1,19 +1,23 @@
-import '@fontsource/roboto/300.css';
-import '@fontsource/roboto/400.css';
-import '@fontsource/roboto/500.css';
-import '@fontsource/roboto/700.css';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { RouterProvider } from 'react-router-dom';
-import AuthProvider from './context/AuthProvider.jsx';
-import './index.css';
-import router from './routes/routes.jsx';
 
+import { ThemeProvider } from "@material-tailwind/react";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={router}/>
-    </AuthProvider>
-  </React.StrictMode>,
-)
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ReactDOM from "react-dom/client";
+import { Toaster } from "react-hot-toast";
+import { RouterProvider } from "react-router-dom";
+import AuthProvider from "./context/AuthProvider.jsx";
+import "./index.css";
+import router from "./routes/routes.jsx";
+
+const queryClient = new QueryClient();
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={router} />
+        <Toaster/>
+      </AuthProvider>
+    </QueryClientProvider>
+  </ThemeProvider>
+);

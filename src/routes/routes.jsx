@@ -1,8 +1,18 @@
-import { Login } from "@mui/icons-material";
 import { createBrowserRouter } from "react-router-dom";
+import axios from "../config/axios.config";
+import Dashboard from "../layouts/dashboard/Dashboard";
 import MainLayout from "../layouts/mainLayout/MainLayout";
+import AddTest from "../pages/admin/addTest/AddTest";
+import AllUsers from "../pages/admin/allUsers/AllUsers";
+import Reservation from "../pages/admin/reservation/Reservation";
+import AllTests from "../pages/allTests/AllTests";
 import Home from "../pages/home/Home";
+import LogIn from '../pages/logIn/LogIn';
 import Register from "../pages/register/Register";
+import SeeDetails from "../pages/seeDetails/SeeDetails";
+import MyProfile from "../pages/user/myprofile/MyProfile";
+import TestResult from "../pages/user/testResult/TestResult";
+import UpComingAppointment from "../pages/user/upcoming/UpComingAppointment";
 
 const router = createBrowserRouter([{
     path: '/',
@@ -14,7 +24,7 @@ const router = createBrowserRouter([{
         },
         {
             path: 'logIn',
-            element: <Login/>
+            element: <LogIn/>
         },
         {
             path:'register',
@@ -26,16 +36,53 @@ const router = createBrowserRouter([{
         },
         {
             path:'allTest',
-            element: <Register/>
+            element: <AllTests/>
         },
         {
-            path:'userDashboard',
-            element: <Register/>
+            path: `tests/seeDetails/:id`,
+            element: <SeeDetails/>,
+            loader: async ({params})=> {
+               const res = await axios.get(`/tests/${params.id}`)
+               return res.data;
+            }
         },
         {
-            path:'adminDashboard',
-            element: <Register/>
-        },
+            path: 'dashboard',
+            element: <Dashboard/>,
+            children: [
+                {
+                    path:'upComingAppointment',
+                    element: <UpComingAppointment/>
+                },
+                {
+                    path:'profile',
+                    element: <MyProfile/>
+                },
+                {
+                    path:'testResult',
+                    element: <TestResult/>
+                },
+
+                /*********  admin  **********/
+                {
+                    path:'admin/allTests',
+                    element: <AllTests/>
+                },
+                {
+                    path:'admin/allUsers',
+                    element: <AllUsers/>
+                },
+                {
+                    path:'admin/reservation',
+                    element: <Reservation/>
+                },
+                {
+                    path:'admin/addTest',
+                    element: <AddTest/>
+                },
+            ]
+        }
+        
     ]
 }])
 

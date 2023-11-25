@@ -1,11 +1,10 @@
-import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Spinner } from '@material-tailwind/react';
 
 
 export default function LoadingSpinner() {
   return (
-    <Box sx={{ display: 'flex' }}>
-      <CircularProgress />
-    </Box>
+    <div className='flex min-h-[700svh] justify-center items-center'>
+      <Spinner className="h-10 w-10" />
+    </div>
   );
 }
