@@ -1,15 +1,23 @@
 import {
-    Button,
-    Card,
-    CardBody,
-    CardHeader,
-    Typography,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Typography,
 } from "@material-tailwind/react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
+import { Modal } from "./Modal";
+
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
 export default function SeeDetails() {
   const test = useLoaderData();
-  console.log(test);
+  // console.log(test?.availableSlots);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen((cur) => !cur);
 
   return (
     <div>
@@ -48,27 +56,42 @@ export default function SeeDetails() {
           </Typography>
 
           <Typography color="gray" className="mb-8 font-normal">
-            {test?.details}
+            {test?.details || ""}
           </Typography>
 
           <Typography color="gray" className="mb-8 font-normal">
-            <span className="text-medium font-bold">Available Slots:</span> {test?.availableSlots.join(', ')}
+            <span className="text-medium font-bold">Available Slots:</span>{" "}
+            {test?.availableSlots.length > 0
+              ? test?.availableSlots.join(", ")
+              : "NO Slot available"}
           </Typography>
 
           <Typography color="gray" className="mb-8 font-normal">
-            <span className="text-medium font-bold">Date:</span> {test?.date}
+            <span className="text-medium font-bold">Date:</span>{" "}
+            {test?.date || ""}
           </Typography>
 
           <Typography color="gray" className="mb-8 font-normal">
-            <span className="text-medium font-bold">Service Charge:</span> ₹ {test?.price}
+            <span className="text-medium font-bold">Service Charge:</span> ₹{" "}
+            {test?.price}
           </Typography>
-          
-            <Button className="flex items-center gap-2">
-              Book now
-            </Button>
-         
+
+          <Button
+            disabled={!test?.availableSlots.length}
+            className="flex items-center gap-2"
+            onClick={handleOpen}
+          >
+            Book now
+          </Button>
         </CardBody>
       </Card>
+      {<Elements stripe={stripePromise}>
+        <Modal
+          open={open}
+          handleOpen={handleOpen}
+          data={test}
+        />
+      </Elements>}
     </div>
   );
 }
