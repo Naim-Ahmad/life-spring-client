@@ -1,19 +1,20 @@
 import {
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    Dialog,
-    Input,
-    Option,
-    Select,
-    Spinner,
-    Typography,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  Dialog,
+  Input,
+  Option,
+  Select,
+  Spinner,
+  Typography,
 } from "@material-tailwind/react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
@@ -31,18 +32,23 @@ export function Modal({ handleOpen, open, data }) {
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
+  const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const {
     data: bookingData,
-    isPending,
+   
     mutateAsync,
-    mutate,
+  
   } = useMutation({
     mutationKey: ["booking"],
     mutationFn: async (bookingInfo) => {
       const res = await axiosSecure.post("/bookings", bookingInfo);
       return res.data;
     },
+    onSuccess: ()=>{
+      queryClient.invalidateQueries(["allTests"])
+    }
   });
 
   //   console.log(mutateAsync,  mutate)
@@ -105,20 +111,21 @@ export function Modal({ handleOpen, open, data }) {
         const bookingInfo = {
           transactionId: paymentIntent?.id,
           slot,
+          date: data?.date,
           paymentAmount: paymentIntent?.amount,
           testId: data?._id,
           userName: user?.displayName,
           userEmail: user?.email,
         };
         console.log("bookingInfo Object", bookingInfo);
+        handleOpen();
         try {
           await mutateAsync(bookingInfo);
 
           console.log("bookingData", bookingData);
 
-          handleOpen();
-
           if (data?._id) {
+            navigate('/dashboard/upComingAppointment')
             Swal.fire({
               title: "Booking Successful!",
               icon: "success",
@@ -198,7 +205,7 @@ export function Modal({ handleOpen, open, data }) {
               <div className=" flex gap-4">
                 <Input
                   containerProps={{ className: "min-w-[6rem] max-w-[7rem]" }}
-                  size="sm"
+                  size="md"
                   label="Promo Code"
                  
                 />

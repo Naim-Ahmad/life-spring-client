@@ -13,6 +13,7 @@ import SeeDetails from "../pages/seeDetails/SeeDetails";
 import MyProfile from "../pages/user/myprofile/MyProfile";
 import TestResult from "../pages/user/testResult/TestResult";
 import UpComingAppointment from "../pages/user/upcoming/UpComingAppointment";
+import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([{
     path: '/',
@@ -40,7 +41,7 @@ const router = createBrowserRouter([{
         },
         {
             path: `tests/seeDetails/:id`,
-            element: <SeeDetails/>,
+            element: <PrivateRoute><SeeDetails/></PrivateRoute>,
             loader: async ({params})=> {
                const res = await axios.get(`/tests/${params.id}`)
                return res.data;
@@ -48,7 +49,7 @@ const router = createBrowserRouter([{
         },
         {
             path: 'dashboard',
-            element: <Dashboard/>,
+            element: <PrivateRoute><Dashboard/></PrivateRoute>,
             children: [
                 {
                     path:'upComingAppointment',

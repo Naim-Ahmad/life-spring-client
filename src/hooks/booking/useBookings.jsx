@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import useAxiosSecure from "../useAxiosSecure"
 
 export default function useBookings() {
+    // console.log(path)
 
     const axiosSecure = useAxiosSecure()
 

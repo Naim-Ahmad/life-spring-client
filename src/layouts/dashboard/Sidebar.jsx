@@ -20,7 +20,7 @@ import { GrTest } from "react-icons/gr";
 
 export default function Sidebar() {
   const { user } = useAuth();
-  const isAdmin = true;
+  const isAdmin = false;
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       {isAdmin ? (
