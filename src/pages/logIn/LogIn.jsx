@@ -1,12 +1,12 @@
 import {
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    Input,
-    Spinner,
-    Typography
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Input,
+  Spinner,
+  Typography
 } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -22,18 +22,17 @@ export default function LogIn() {
 
   const {logIn, loading, setLoading} = useAuth()
 
-
   const handleLogin = (data) => {
-    console.log(data);
+    // console.log(data);
     
-    logIn()
+    logIn(data?.email, data?.password)
     .then(()=> {
         toast.success('Log in successful!')
     })
     .catch(err=> {
-        setLoading(false)
         toast.error(err.message)
         console.log(err)
+        setLoading(false)
     })
   };
 

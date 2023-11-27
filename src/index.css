@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active {
+  color: green;
+  font-weight: bold;
+}
+
+.text-shadow {
+  text-shadow: 0 0 2px black;
+  color: #fff !important;
+}

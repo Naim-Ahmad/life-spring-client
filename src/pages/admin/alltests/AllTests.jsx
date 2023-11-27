@@ -1,9 +1,10 @@
 import { Card, CardBody, Typography } from "@material-tailwind/react";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import useTests from "../../../hooks/tests/useTests";
+import SectionHeader from "../../shared/SectionHeader";
 import TestTable from "./TestTable";
 
-const TABLE_HEAD = ["Test", "Price", "Available Slots", "Action"];
+const TABLE_HEAD = ["Test", "Price", "Slots", "Reservation", "Date", "Action"];
 
 export default function AllTests() {
   const { tests, isPending } = useTests();
@@ -13,8 +14,9 @@ export default function AllTests() {
   //   console.log(data);
 
   return (
-    <div>
-      <Card className="h-full w-full">
+    <>
+    <SectionHeader title="" description={<span>All <span className="text-green-500">Available</span> Service</span>}/>
+      <Card className=" w-full">
         <CardBody className="overflow-scroll px-0">
           <table className="mt-4 w-full min-w-max table-auto text-left">
             <thead>
@@ -43,6 +45,6 @@ export default function AllTests() {
           </table>
         </CardBody>
       </Card>
-    </div>
+    </>
   );
 }

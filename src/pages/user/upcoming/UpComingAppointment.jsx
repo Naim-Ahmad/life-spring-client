@@ -4,6 +4,7 @@ import { Card, Typography } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import SectionHeader from "../../shared/SectionHeader";
 import UpComingTable from "./UpComingTable";
 
 const TABLE_HEAD = ["Test Name", "Slot", "Date", "Status", "Action"];
@@ -15,10 +16,10 @@ export default function UpComingAppointment() {
   const axiosSecure = useAxiosSecure();
 
   const { data=[], isPending, refetch } = useQuery({
-    queryKey: ["getBookingByEmail"],
+    queryKey: ["getReservationByEmail"],
     queryFn: async () => {
       if (user) {
-        const res = await axiosSecure.get(`/bookings/${user?.email}`);
+        const res = await axiosSecure.get(`/reservations/${user?.email}`);
         return res.data;
       }
     },
@@ -30,7 +31,7 @@ export default function UpComingAppointment() {
 
   return (
     <div>
-      <h1>Upcoming appinetment</h1>
+      <SectionHeader title="" description={<span>Upcoming <span className="text-green-500">Appointment</span></span>}/>
       <Card className="h-full w-full overflow-scroll">
         <table className="w-full min-w-max table-auto text-left">
           <thead>
@@ -52,8 +53,8 @@ export default function UpComingAppointment() {
             </tr>
           </thead>
           <tbody>
-            {data.map((booking) => (
-              <UpComingTable key={booking._id} refetch={refetch} data={booking} />
+            {data.map((reservation) => (
+              <UpComingTable key={reservation._id} refetch={refetch} data={reservation} />
             ))}
           </tbody>
         </table>

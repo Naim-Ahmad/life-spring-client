@@ -3,8 +3,9 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
-export default function UpComingTable({ data: booking, refetch }) {
-  const { _id, testId, slot, status } = booking;
+export default function UpComingTable({ data: reservation, refetch }) {
+  const { _id, test, slot, status } = reservation;
+  console.log(test)
 
   const axiosSecure = useAxiosSecure();
 
@@ -20,7 +21,7 @@ export default function UpComingTable({ data: booking, refetch }) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const res = await axiosSecure.delete(`/bookings/${_id}`);
+          const res = await axiosSecure.delete(`/reservations/${_id}`);
           console.log(res.data);
           if (res.data._id) {
             refetch();
@@ -50,7 +51,7 @@ export default function UpComingTable({ data: booking, refetch }) {
     <tr className="even:bg-blue-gray-50/50">
       <td className="p-4">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          {testId?.testName}
+          {test?.testName}
         </Typography>
       </td>
       <td className="p-4">
@@ -60,7 +61,7 @@ export default function UpComingTable({ data: booking, refetch }) {
       </td>
       <td className="p-4">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          {testId?.date || ""}
+          {test?.date || ""}
         </Typography>
       </td>
       <td className="p-4">

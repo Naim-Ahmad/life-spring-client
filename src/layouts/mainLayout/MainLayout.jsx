@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button,
   Collapse,
   IconButton,
@@ -10,6 +11,7 @@ import toast from "react-hot-toast";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import Container from "../../components/Container";
 import useAuth from "../../hooks/useAuth";
+import Footer from "../footer/Footer";
 
 export default function MainLayout() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -45,7 +47,7 @@ export default function MainLayout() {
     { value: "All Test", route: "/allTest" },
     user ? { value: "Dashboard", route: "/dashboard" } : null,
   ];
-  
+
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -66,17 +68,20 @@ export default function MainLayout() {
     </ul>
   );
 
+  const avatarURL = "https://i.ibb.co/3SsNCnk/logo-removebg-preview.png"
+
   return (
     <div className="max-h-[768px]">
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
         <div className="flex items-center justify-between text-blue-gray-900">
-          <Typography
-            as="a"
-            href="#"
-            className="mr-4 cursor-pointer py-1.5 font-medium"
-          >
-            Life Spring
-          </Typography>
+          <Link to="/">
+            <Typography
+              as="span"
+              className="mr-4 cursor-pointer py-1.5 font-bold text-xl flex gap-1"
+            >
+              <Avatar src={avatarURL} alt="avatar" size="xs" className=" w-8" /> Life <Typography as="span" color="green" className="font-bold text-xl">Spring</Typography>
+            </Typography>
+          </Link>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
 
@@ -85,6 +90,7 @@ export default function MainLayout() {
                 <Button
                   variant="gradient"
                   size="sm"
+                  color="green"
                   onClick={handleSignOut}
                   className="hidden lg:inline-block"
                 >
@@ -96,6 +102,7 @@ export default function MainLayout() {
                     <Button
                       variant="outlined"
                       size="sm"
+                      color="green"
                       className="hidden lg:inline-block"
                     >
                       <span>Sign Up</span>
@@ -105,6 +112,7 @@ export default function MainLayout() {
                   <Link to="/logIn">
                     <Button
                       variant="gradient"
+                      color="green"
                       size="sm"
                       className="hidden lg:inline-block"
                     >
@@ -159,12 +167,12 @@ export default function MainLayout() {
           {navList}
           <div className="flex items-center gap-x-1">
             <Link to="/register">
-              <Button fullWidth variant="text" size="sm" className="">
+              <Button fullWidth color="green" variant="text" size="sm" className="">
                 <span>Sign Up</span>
               </Button>
             </Link>
             <Link to="logIn">
-              <Button fullWidth variant="gradient" size="sm" className="">
+              <Button fullWidth color="green" variant="gradient" size="sm" className="">
                 <span>Sign in</span>
               </Button>
             </Link>
@@ -174,6 +182,7 @@ export default function MainLayout() {
       <Container>
         <Outlet />
       </Container>
+      <Footer />
     </div>
   );
 }

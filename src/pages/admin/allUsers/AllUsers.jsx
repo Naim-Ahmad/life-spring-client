@@ -2,6 +2,7 @@ import { Card, CardBody, Typography } from "@material-tailwind/react";
 import { useQuery } from "@tanstack/react-query";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import SectionHeader from "../../shared/SectionHeader";
 import UsersTable from "./UsersTable";
 
 const TABLE_HEAD = ["User", "Status", "Role", "Action"];
@@ -21,8 +22,9 @@ export default function AllUsers() {
   //   console.log(data);
 
   return (
-    <div>
-      <Card className="h-full w-full">
+    <>
+    <SectionHeader title="" description={<span>All <span className="text-green-500">Users</span></span>}/>
+      <Card className=" w-full">
         <CardBody className="overflow-scroll px-0">
           <table className="mt-4 w-full min-w-max table-auto text-left">
             <thead>
@@ -51,6 +53,6 @@ export default function AllUsers() {
           </table>
         </CardBody>
       </Card>
-    </div>
+    </>
   );
 }

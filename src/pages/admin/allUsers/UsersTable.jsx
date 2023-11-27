@@ -16,12 +16,16 @@ import {
 } from "@material-tailwind/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
+import { useState } from "react";
 import { CiMenuKebab } from "react-icons/ci";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import UserInfo from "./UserInfo";
 
 export default function UsersTable({ user, index }) {
   //   console.log(user);
+  const [open, setOpen] = useState(false);
+  
   const { _id, avatar, name, email, status, role } = user;
   const isLast = index === user?.length - 1;
   const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
@@ -30,6 +34,7 @@ export default function UsersTable({ user, index }) {
   const queryClient = useQueryClient();
 
   const { mutate, status: updateStatus } = useMutation({
+
     mutationKey: ["blockUser", _id],
     mutationFn: async (data) => {
       const res = await axiosSecure.patch(`/users/${_id}`, data);
@@ -105,8 +110,11 @@ export default function UsersTable({ user, index }) {
       });
     }
   };
+ 
+  const handleOpen = () => setOpen(!open);
 
   return (
+    <>
     <tr>
       <td className={classes}>
         <div className="flex items-center gap-3">
@@ -160,7 +168,7 @@ export default function UsersTable({ user, index }) {
             </IconButton>
           </MenuHandler>
           <MenuList>
-            <MenuItem className="items-center gap-2 flex">
+            <MenuItem onClick={handleOpen} className="items-center gap-2 flex">
               {" "}
               <InformationCircleIcon className="h-4 w-4" /> See Info
             </MenuItem>
@@ -208,5 +216,7 @@ export default function UsersTable({ user, index }) {
         </Menu>
       </td>
     </tr>
+    <UserInfo handleOpen={handleOpen} open={open} data={user}/>
+    </>
   );
 }

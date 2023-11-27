@@ -1,10 +1,15 @@
 import {
   ArrowPathRoundedSquareIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,
   Cog6ToothIcon,
   InboxIcon,
-  UserCircleIcon,
+  UserCircleIcon
 } from "@heroicons/react/24/solid";
 import {
+  Accordion,
+  AccordionBody,
+  AccordionHeader,
   Card,
   Chip,
   List,
@@ -13,21 +18,33 @@ import {
   ListItemSuffix,
   Typography,
 } from "@material-tailwind/react";
+import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
+import { useState } from "react";
+import { CiImageOn } from "react-icons/ci";
 import { GrTest } from "react-icons/gr";
+import useReservation from "../../hooks/reservation/useReservation";
 
 export default function Sidebar() {
   const { user } = useAuth();
-  const isAdmin = false;
+
+  const [open, setOpen] = useState(0)
+  const isAdmin = true;
+  const { data: reservations = [] } = useReservation()
+
+  const handleOpen = (value) => {
+    setOpen(open === value ? 0 : value);
+  };
+
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       {isAdmin ? (
         <>
           <div className="mb-2 p-4">
             <Typography variant="h5" color="blue-gray">
-              Admin DashBoard
+              Admin <span className="text-green-500">DashBoard</span>
             </Typography>
           </div>
           <List>
@@ -63,7 +80,7 @@ export default function Sidebar() {
                 Reservation
                 <ListItemSuffix>
                   <Chip
-                    value="14"
+                    value={reservations?.length}
                     size="sm"
                     variant="ghost"
                     color="blue-gray"
@@ -73,12 +90,53 @@ export default function Sidebar() {
               </ListItem>
             </NavLink>
 
-            <ListItem>
-              <ListItemPrefix>
-                <Cog6ToothIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              Settings
-            </ListItem>
+
+            <Accordion
+              open={open === 1}
+              icon={
+                <ChevronDownIcon
+                  strokeWidth={2.5}
+                  className={`mx-auto h-4 w-4 transition-transform ${open === 1 ? "rotate-180" : ""}`}
+                />
+              }
+            >
+              <ListItem className="p-0" selected={open === 1}>
+                <AccordionHeader onClick={() => handleOpen(1)} className="border-b-0 p-3">
+
+                  <Typography as="span" color="blue-gray" className="flex justify-start font-normal">
+                    <ListItemPrefix>
+                      <Cog6ToothIcon className="h-5 w-5" />
+                    </ListItemPrefix>
+                    Settings
+                  </Typography>
+                </AccordionHeader>
+              </ListItem>
+              <AccordionBody className="py-1">
+                <List className="p-0">
+                  <NavLink to='/dashboard/admin/addBanner'>
+                    <ListItem>
+                      <ListItemPrefix>
+                        <MdOutlineAddPhotoAlternate className="h-5 w-5" />
+                      </ListItemPrefix>
+                      Add banner
+                    </ListItem>
+                  </NavLink>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <CiImageOn className="h-5 w-5" />
+                    </ListItemPrefix>
+                    All Banners
+                  </ListItem>
+                  <ListItem>
+                    <ListItemPrefix>
+                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                    </ListItemPrefix>
+                    Projects
+                  </ListItem>
+                </List>
+              </AccordionBody>
+            </Accordion>
+
           </List>
         </>
       ) : (
@@ -113,7 +171,7 @@ export default function Sidebar() {
                 Test Result
               </ListItem>
             </NavLink>
-            <ListItem>
+            {/* <ListItem>
               <ListItemPrefix>
                 <InboxIcon className="h-5 w-5" />
               </ListItemPrefix>
@@ -134,7 +192,7 @@ export default function Sidebar() {
                 <Cog6ToothIcon className="h-5 w-5" />
               </ListItemPrefix>
               Settings
-            </ListItem>
+            </ListItem> */}
           </List>
         </>
       )}

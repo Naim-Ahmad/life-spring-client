@@ -4,7 +4,9 @@ import Dashboard from "../layouts/dashboard/Dashboard";
 import MainLayout from "../layouts/mainLayout/MainLayout";
 import AddTest from "../pages/admin/addTest/AddTest";
 import AllUsers from "../pages/admin/allUsers/AllUsers";
+import AdminAllTests from "../pages/admin/alltests/AllTests";
 import Reservation from "../pages/admin/reservation/Reservation";
+import AddBanner from "../pages/admin/settings/AddBanner";
 import AllTests from "../pages/allTests/AllTests";
 import Home from "../pages/home/Home";
 import LogIn from '../pages/logIn/LogIn';
@@ -67,7 +69,7 @@ const router = createBrowserRouter([{
                 /*********  admin  **********/
                 {
                     path:'admin/allTests',
-                    element: <AllTests/>
+                    element: <AdminAllTests/>
                 },
                 {
                     path:'admin/allUsers',
@@ -80,6 +82,10 @@ const router = createBrowserRouter([{
                 {
                     path:'admin/addTest',
                     element: <AddTest/>
+                },
+                {
+                    path:'admin/addBanner',
+                    element: <AddBanner/>
                 },
             ]
         }

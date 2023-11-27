@@ -19,7 +19,6 @@ import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
-
 export function Modal({ handleOpen, open, data }) {
   //   console.log(slots);
   const [error, setError] = useState("");
@@ -32,23 +31,21 @@ export function Modal({ handleOpen, open, data }) {
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
   const { user } = useAuth();
-  const navigate = useNavigate()
-  const queryClient = useQueryClient()
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
-  const {
-    data: bookingData,
-   
-    mutateAsync,
-  
-  } = useMutation({
-    mutationKey: ["booking"],
-    mutationFn: async (bookingInfo) => {
-      const res = await axiosSecure.post("/bookings", bookingInfo);
+  const { data: reservationData, mutateAsync, status} = useMutation({
+    mutationKey: ["reservation"],
+    mutationFn: async (reservationInfo) => {
+      const res = await axiosSecure.post(
+        `/reservations/${user?.email}`,
+        reservationInfo
+      );
       return res.data;
     },
-    onSuccess: ()=>{
-      queryClient.invalidateQueries(["allTests"])
-    }
+    onSuccess: () => {
+      queryClient.invalidateQueries(["allTests"]);
+    },
   });
 
   //   console.log(mutateAsync,  mutate)
@@ -107,34 +104,34 @@ export function Modal({ handleOpen, open, data }) {
       setLoading(false);
     } else {
       console.log("payment intent", paymentIntent);
+
       if (paymentIntent.status === "succeeded") {
-        const bookingInfo = {
+        const reservationInfo = {
           transactionId: paymentIntent?.id,
           slot,
           date: data?.date,
           paymentAmount: paymentIntent?.amount,
           testId: data?._id,
-          userName: user?.displayName,
-          userEmail: user?.email,
         };
-        console.log("bookingInfo Object", bookingInfo);
+        console.log("reservationInfo Object", reservationInfo);
         handleOpen();
         try {
-          await mutateAsync(bookingInfo);
+         await mutateAsync(reservationInfo);
 
-          console.log("bookingData", bookingData);
+          // console.log("reservationData", reservationData);
+          // console.log("responseData", data);
 
-          if (data?._id) {
-            navigate('/dashboard/upComingAppointment')
+         
+            navigate("/dashboard/upComingAppointment");
             Swal.fire({
-              title: "Booking Successful!",
+              title: "Payment Successful!",
               icon: "success",
               showConfirmButton: false,
               timer: 2000,
             });
 
             setLoading(false);
-          }
+        
         } catch (error) {
           setLoading(false);
           toast.error(error.message);
@@ -157,14 +154,14 @@ export function Modal({ handleOpen, open, data }) {
           <Card className="mx-auto w-full max-w-[30rem]">
             <CardBody className="flex flex-col gap-4">
               <Typography variant="h4" color="blue-gray">
-                Pay Some Advance to booking
+                Pay Some Advance to reservation
               </Typography>
               <Typography
                 className="mb-3 font-normal"
                 variant="paragraph"
                 color="gray"
               >
-                Enter your card info and select a slot to booking.
+                Enter your card info and select a slot to reservation.
               </Typography>
 
               <CardElement
@@ -200,14 +197,15 @@ export function Modal({ handleOpen, open, data }) {
                 </Select>
               </div>
 
-              <Typography variant="small" className="font-bold">Total Amount: {totalAmount}</Typography>
+              <Typography variant="small" className="font-bold">
+                Total Amount: {totalAmount}
+              </Typography>
 
               <div className=" flex gap-4">
                 <Input
                   containerProps={{ className: "min-w-[6rem] max-w-[7rem]" }}
                   size="md"
                   label="Promo Code"
-                 
                 />
                 <Button variant="text" size="sm">
                   Apply
