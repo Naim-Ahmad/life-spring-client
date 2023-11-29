@@ -1,33 +1,19 @@
 import LoadingSpinner from "../../../components/LoadingSpinner";
 
 import { Card, Typography } from "@material-tailwind/react";
-import { useQuery } from "@tanstack/react-query";
-import useAuth from "../../../hooks/useAuth";
-import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useReservationById from "../../../hooks/reservation/useReservationById";
 import SectionHeader from "../../shared/SectionHeader";
 import UpComingTable from "./UpComingTable";
 
 const TABLE_HEAD = ["Test Name", "Slot", "Date", "Status", "Action"];
 
 export default function UpComingAppointment() {
-  const { user } = useAuth();
-  // console.log(loading)
 
-  const axiosSecure = useAxiosSecure();
-
-  const { data=[], isPending, refetch } = useQuery({
-    queryKey: ["getReservationByEmail"],
-    queryFn: async () => {
-      if (user) {
-        const res = await axiosSecure.get(`/reservations/${user?.email}`);
-        return res.data;
-      }
-    },
-  });
+  const { reservations, isPending, refetch } = useReservationById()
 
   if (isPending) return <LoadingSpinner />;
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div>
@@ -53,7 +39,7 @@ export default function UpComingAppointment() {
             </tr>
           </thead>
           <tbody>
-            {data.map((reservation) => (
+            {reservations.map((reservation) => ( reservation?.status !== 'delivered' &&
               <UpComingTable key={reservation._id} refetch={refetch} data={reservation} />
             ))}
           </tbody>

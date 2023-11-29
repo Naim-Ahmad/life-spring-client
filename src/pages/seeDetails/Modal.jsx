@@ -16,8 +16,8 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useUser from "../../hooks/users/useUser";
 
 export function Modal({ handleOpen, open, data }) {
   //   console.log(slots);
@@ -30,9 +30,12 @@ export function Modal({ handleOpen, open, data }) {
   const stripe = useStripe();
   const elements = useElements();
   const axiosSecure = useAxiosSecure();
-  const { user } = useAuth();
+
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
+  const {data:user} = useUser()
+  // console.log(user)
 
   const { data: reservationData, mutateAsync, status} = useMutation({
     mutationKey: ["reservation"],
@@ -92,7 +95,7 @@ export function Modal({ handleOpen, open, data }) {
         payment_method: {
           card: card,
           billing_details: {
-            name: user?.displayName || "anonymous",
+            name: user?.name || "anonymous",
             email: user?.email || "anonymous",
           },
         },
@@ -112,6 +115,7 @@ export function Modal({ handleOpen, open, data }) {
           date: data?.date,
           paymentAmount: paymentIntent?.amount,
           testId: data?._id,
+          user: user?._id
         };
         console.log("reservationInfo Object", reservationInfo);
         handleOpen();
@@ -145,7 +149,7 @@ export function Modal({ handleOpen, open, data }) {
   return (
     <>
       <Dialog
-        size="xs"
+        size="md"
         open={open}
         handler={handleOpen}
         className="bg-transparent shadow-none"
@@ -215,6 +219,7 @@ export function Modal({ handleOpen, open, data }) {
             <CardFooter className="pt-0">
               <Button
                 type="submit"
+                color="green"
                 variant="gradient"
                 // onClick={handleOpen}
                 fullWidth

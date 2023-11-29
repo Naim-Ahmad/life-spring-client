@@ -95,11 +95,11 @@ export default function AddTest() {
   return (
     <Card className="w-3/4 mx-auto">
       <CardHeader shadow={false}>
-        <SectionHeader description={<span>Add a <span className="text-green-500">Service</span></span>} />
+        <SectionHeader title="" description={<span>Add a <span className="text-green-500">Service</span></span>} />
       </CardHeader>
       <CardBody>
         <form
-          className="grid grid-cols-2 gap-6 w-2/3 mx-auto"
+          className="grid grid-cols-2 gap-6  mx-auto"
           onSubmit={handleSubmit(handleAddTest)}
         >
           <div>
@@ -111,9 +111,6 @@ export default function AddTest() {
               />
             </div>
 
-            {/* <div className="mb-12 ">
-            <Textarea {...register("details")} />
-          </div> */}
             <div className="mb-12">
               <Input
                 variant="static"
@@ -131,24 +128,7 @@ export default function AddTest() {
               />
             </div>
             <div className="">
-              {/* <Button variant="gradient" className="flex items-center gap-3">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="h-5 w-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-              />
-            </svg>
-            Upload Files
-            
-          </Button> */}
+           
               <input {...register("imageURL")} type="file" accept="image/*" />
             </div>
           </div>

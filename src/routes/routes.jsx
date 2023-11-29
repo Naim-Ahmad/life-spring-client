@@ -7,6 +7,7 @@ import AllUsers from "../pages/admin/allUsers/AllUsers";
 import AdminAllTests from "../pages/admin/alltests/AllTests";
 import Reservation from "../pages/admin/reservation/Reservation";
 import AddBanner from "../pages/admin/settings/AddBanner";
+import AllBanners from "../pages/admin/settings/AllBanners";
 import AllTests from "../pages/allTests/AllTests";
 import Home from "../pages/home/Home";
 import LogIn from '../pages/logIn/LogIn';
@@ -15,6 +16,7 @@ import SeeDetails from "../pages/seeDetails/SeeDetails";
 import MyProfile from "../pages/user/myprofile/MyProfile";
 import TestResult from "../pages/user/testResult/TestResult";
 import UpComingAppointment from "../pages/user/upcoming/UpComingAppointment";
+import AdminRoute from "./AdminRoute";
 import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([{
@@ -69,23 +71,27 @@ const router = createBrowserRouter([{
                 /*********  admin  **********/
                 {
                     path:'admin/allTests',
-                    element: <AdminAllTests/>
+                    element: <AdminRoute> <AdminAllTests/></AdminRoute>
                 },
                 {
                     path:'admin/allUsers',
-                    element: <AllUsers/>
+                    element:<AdminRoute><AllUsers/></AdminRoute>
                 },
                 {
                     path:'admin/reservation',
-                    element: <Reservation/>
+                    element: <AdminRoute><Reservation/></AdminRoute>
                 },
                 {
                     path:'admin/addTest',
-                    element: <AddTest/>
+                    element:<AdminRoute> <AddTest/></AdminRoute>
                 },
                 {
                     path:'admin/addBanner',
-                    element: <AddBanner/>
+                    element: <AdminRoute><AddBanner/></AdminRoute>
+                },
+                {
+                    path:'admin/allBanners',
+                    element: <AdminRoute><AllBanners/></AdminRoute>
                 },
             ]
         }

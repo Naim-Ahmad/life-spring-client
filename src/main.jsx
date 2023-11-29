@@ -12,12 +12,12 @@ import router from "./routes/routes.jsx";
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <ThemeProvider>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
+  <AuthProvider>
+    <ThemeProvider>
+      <QueryClientProvider client={queryClient}>
         <RouterProvider router={router} />
-        <Toaster/>
-      </AuthProvider>
-    </QueryClientProvider>
-  </ThemeProvider>
+        <Toaster />
+      </QueryClientProvider>
+    </ThemeProvider>
+  </AuthProvider>
 );

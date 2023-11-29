@@ -26,17 +26,21 @@ import { useState } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { GrTest } from "react-icons/gr";
 import useReservation from "../../hooks/reservation/useReservation";
+import useIsAdmin from "../../hooks/useIsAdmin";
 
 export default function Sidebar() {
   const { user } = useAuth();
 
   const [open, setOpen] = useState(0)
-  const isAdmin = true;
   const { data: reservations = [] } = useReservation()
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value);
   };
+
+  const {isAdmin} = useIsAdmin()
+  // console.log(isAdmin)
+
 
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
@@ -121,12 +125,14 @@ export default function Sidebar() {
                       Add banner
                     </ListItem>
                   </NavLink>
-                  <ListItem>
-                    <ListItemPrefix>
-                      <CiImageOn className="h-5 w-5" />
-                    </ListItemPrefix>
-                    All Banners
-                  </ListItem>
+                  <NavLink to='/dashboard/admin/allBanners'>
+                    <ListItem>
+                      <ListItemPrefix>
+                        <CiImageOn className="h-5 w-5" />
+                      </ListItemPrefix>
+                      All Banners
+                    </ListItem>
+                  </NavLink>
                   <ListItem>
                     <ListItemPrefix>
                       <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
@@ -143,7 +149,7 @@ export default function Sidebar() {
         <>
           <div className="mb-2 p-4">
             <Typography variant="h5" color="blue-gray">
-              Hi! {user?.displayName}
+              Hi! <span className="text-green-500">{user?.displayName}</span>
             </Typography>
           </div>
           <List>

@@ -5,6 +5,8 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 export default function UpComingTable({ data: reservation, refetch }) {
   const { _id, test, slot, status } = reservation;
+
+  // const status = 'canceled'
   console.log(test)
 
   const axiosSecure = useAxiosSecure();
@@ -70,17 +72,18 @@ export default function UpComingTable({ data: reservation, refetch }) {
             variant="ghost"
             size="sm"
             value={status}
-            color={status !== "pending" ? "green" : "blue-gray"}
+            color={status !== "pending" ? status === 'canceled' ? "red" : "green" : "blue-gray"}
           />
         </div>
       </td>
       <td className="p-4">
-        <Tooltip content="Cancel Appointment">
-          <Button onClick={handleCancel} variant="text" className="font-medium">
-            Cancel
+        <Tooltip content={status === 'pending' ? "Cancel Appointment" : "Delete Appointment"}>
+          <Button onClick={handleCancel} variant="text" color="red" size="sm" className="font-medium">
+            {status === 'pending' ? 'Cancel' : 'Delete'}
           </Button>
         </Tooltip>
       </td>
     </tr>
+
   );
 }

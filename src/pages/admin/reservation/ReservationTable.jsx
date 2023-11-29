@@ -1,11 +1,17 @@
-import { Button, Chip, Tooltip, Typography } from "@material-tailwind/react";
+import { Avatar, Button, Chip, Tooltip, Typography } from "@material-tailwind/react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import SubmitResult from "./SubmitResult";
 
-export default function ReservationTable({ reservation }) {
-    const { _id, test, slot, status } = reservation;
-    console.log(reservation, slot)
+export default function ReservationTable({ reservation, index }) {
+    const { _id, test, slot, status, user } = reservation;
+    // console.log(reservation, slot)
+
+    const [open, setOpen] = useState(false)
+
+    const handleOpen = () => setOpen(!open)
 
     const axiosSecure = useAxiosSecure()
 
@@ -47,20 +53,40 @@ export default function ReservationTable({ reservation }) {
         });
     };
 
-    console.log(test)
+    // console.log(test)
+
+    const isLast = index === reservation?.length - 1;
+    const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
 
     return (
         <tr className="even:bg-blue-gray-50/50">
+            <td className={classes}>
+                <div className="flex items-center gap-3">
+                    <Avatar src={user?.avatar} alt={user?.name} size="sm" />
+                    <div className="flex flex-col">
+                        <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal"
+                        >
+                            {user?.name}
+                        </Typography>
+                        <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal opacity-70"
+                        >
+                            {user?.email}
+                        </Typography>
+                    </div>
+                </div>
+            </td>
             <td className="p-4">
                 <Typography variant="small" color="blue-gray" className="font-normal">
                     {test?.testName}
                 </Typography>
             </td>
-            <td className="p-4">
-                <Typography variant="small" color="blue-gray" className="font-normal">
-                    {slot}
-                </Typography>
-            </td>
+
             <td className="p-4">
                 <Typography variant="small" color="blue-gray" className="font-normal">
                     {test?.date || ""}
@@ -76,13 +102,22 @@ export default function ReservationTable({ reservation }) {
                     />
                 </div>
             </td>
-            <td className="p-4">
+            <td className="p-4 flex gap-2">
+                <Tooltip content="Submit Appointment">
+                    <Button onClick={handleOpen} size="sm" color="green" variant="outlined" className="font-medium">
+                        {status === 'delivered'? "Re Submit": "Submit"}
+                    </Button>
+                </Tooltip>
                 <Tooltip content="Cancel Appointment">
-                    <Button onClick={handleCancel} variant="text" color="red" className="font-medium">
+                    {/* <IconButton>
+                        
+                    </IconButton> */}
+                    <Button onClick={handleCancel} size="sm" variant="text" color="red" className="font-medium">
                         Cancel
                     </Button>
                 </Tooltip>
             </td>
+            <SubmitResult open={open} handleOpen={handleOpen} data={reservation} />
         </tr>
     )
 }

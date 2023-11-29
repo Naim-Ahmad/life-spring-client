@@ -1,10 +1,11 @@
 import { Button, Card, CardBody, CardHeader, Typography } from "@material-tailwind/react";
+import Container from "../../components/Container";
 import SectionHeader from "../shared/SectionHeader";
 
 export default function Featured() {
 
     return (
-        <section>
+        <Container>
             <SectionHeader title="Featured" description={<span>Our Most Used <span className="text-green-500">Services</span></span>} />
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                 <Card
@@ -31,6 +32,6 @@ export default function Featured() {
                     </CardBody>
                 </Card>
             </div>
-        </section>
+        </Container>
     )
 }

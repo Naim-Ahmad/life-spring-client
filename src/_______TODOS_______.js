@@ -1,13 +1,15 @@
 /**
- * TODO: edit profile 
- * TODO: user dashboard upcomming appintment and test result 
- * TODO: in admin dashboard add reservasion in all tests page, and implement edit functaionality
- * TODO: in admin dashboard add a test form validation and final design
- * TODO: in admin dashboard add banner +  all banner
  * TODO: in payment getway add apply promo code
+ * mostly booked service show in featured section
+ * recommendation upload sytem form admin dashboard
+ * all test page show data as availabe date
+ * filter by date search feature
+ * 3 extra page
+ * implement jwt
+ * pagination in all tests page
+ * admin route implement
  * 
  * optional
- * TODO: file upload system fix
  * TODO: when user cancel apointment then add this available time slot also 
  * TODO: featured section dynamic
  * TODO: control usr booking 

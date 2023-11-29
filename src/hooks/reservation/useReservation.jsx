@@ -6,7 +6,7 @@ export default function useReservation() {
 
     const axiosSecure = useAxiosSecure()
 
-    const {data, status, isPending} = useQuery({
+    const {data, status, isPending, refetch} = useQuery({
         queryKey: ['allReservations'],
         queryFn: async()=>{
             const res = await axiosSecure.get('/reservations')
@@ -14,5 +14,5 @@ export default function useReservation() {
         }
     })
 
-    return {data, status, isPending}
+    return {data, status, isPending, refetch}
 }

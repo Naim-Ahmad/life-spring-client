@@ -13,7 +13,7 @@ export default function AddBanner() {
 
     const { register, handleSubmit } = useForm()
 
-const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const axiosSecure = useAxiosSecure()
 
@@ -30,23 +30,22 @@ const [loading, setLoading] = useState(false)
             })
             // console.log(uploadedImageData.data.data.display_url)
 
-            if(uploadedImageData.data.data){
+            if (uploadedImageData.data.data) {
                 const bannerData = {
                     ...data,
-                    bannerURL: uploadedImageData.data.display_url
+                    bannerURL: uploadedImageData.data.data.display_url
                 }
-                // console.log('bannerData', bannerData)
+                console.log('bannerData', bannerData)
 
-                const {data:insertedData} = await axiosSecure.post('/banners', bannerData)
-                if(insertedData?._id){
+                const { data: insertedData } = await axiosSecure.post('/banners', bannerData)
+                if (insertedData?._id) {
                     setLoading(false)
                     Swal.fire({
-                      
                         icon: "success",
                         title: "Banner Saved Successfully!",
                         showConfirmButton: false,
                         timer: 1500
-                      });
+                    });
                 }
             }
         } catch (error) {
@@ -72,7 +71,7 @@ const [loading, setLoading] = useState(false)
                             <div>
                                 <input {...register('bannerURL')} type="file" accept='image/*' name="bannerURL" id="" className='mt-3 mb-5' />
                             </div>
-                            <Button disabled={loading} type='submit' fullWidth color='green'>{loading ? <div className='flex justify-center'><Spinner/></div>: 'Upload Banner'}</Button>
+                            <Button disabled={loading} type='submit' fullWidth color='green'>{loading ? <div className='flex justify-center'><Spinner /></div> : 'Upload Banner'}</Button>
                         </form>
                     </CardBody>
                 </Card>

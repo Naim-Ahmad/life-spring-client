@@ -12,13 +12,15 @@ import {
 } from "@material-tailwind/react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Lottie from "react-lottie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Illustration from '../../assets/loginIllustration.json';
+import Container from "../../components/Container";
 import axiosPublic from "../../config/axios.config";
 import useAuth from "../../hooks/useAuth";
 
-const IMAGE_HOSTING_URL = `https://api.imgbb.com/1/upload?key=${
-  import.meta.env.VITE_IMGBB_API_KEY
-}`;
+const IMAGE_HOSTING_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY
+  }`;
 
 export default function Register() {
   const [district, setDistrict] = useState("");
@@ -28,6 +30,8 @@ export default function Register() {
   const [upazilas, setUpazilas] = useState([]);
   const navigate = useNavigate();
   const { state } = useLocation();
+
+  const [avatarName, setAvatarName] = useState('No Image Selected')
 
   const {
     register,
@@ -53,7 +57,8 @@ export default function Register() {
 
   const handleRegister = async (data) => {
     setLoading(true)
-    const imageData = { image: data.avatar[0] };
+    const imageData = { image: avatarName };
+    console.log(imageData)
     axios
       .post(IMAGE_HOSTING_URL, imageData, {
         headers: {
@@ -75,15 +80,15 @@ export default function Register() {
             updateUserInfo(data?.name, res.data.data.display_url)
               .then(() => {
                 axiosPublic.post("/users", formData)
-                .then(()=> {
-                  toast.success('Registration successful')
-                  state ? navigate(state) : navigate("/");
-                })
-                .catch(err=> {
-                  setLoading(false)
-                  toast.error(err.message)
-                  console.log(err)
-                })
+                  .then(() => {
+                    toast.success('Registration successful')
+                    state ? navigate(state) : navigate("/");
+                  })
+                  .catch(err => {
+                    setLoading(false)
+                    toast.error(err.message)
+                    console.log(err)
+                  })
               })
               .catch((err) => {
                 setLoading(false);
@@ -104,164 +109,206 @@ export default function Register() {
       });
   };
 
+
+  const handleUpload = () => {
+    // avatarRef.click()
+    console.log('first')
+    document.getElementById('uploadAvatar').click()
+  }
+
+  const handleAvatarName = e => {
+    setAvatarName(e.target.files[0])
+    console.dir(e.target)
+  }
+
   return (
-    <Card color="transparent" shadow={false}>
-      <Typography variant="h4" color="blue-gray">
-        Sign Up
-      </Typography>
-      <Typography color="gray" className="mt-1 font-normal">
-        Nice to meet you! Enter your details to register.
-      </Typography>
-      <form
-        onSubmit={handleSubmit(handleRegister)}
-        className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96"
-      >
-        <div className="mb-1 flex flex-col gap-6">
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Your Name
+    <Container>
+      <div className="flex justify-evenly">
+        <Card color="transparent" shadow={false} >
+          <Typography variant="h1" color="blue-gray" className="text-center">
+            Sign Up
           </Typography>
-          <Input
-            size="lg"
-            placeholder="Name"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            error={errors?.password?.type === "required"}
-            {...register("name", { required: true })}
-          />
-          {errors && errors?.password?.type === "required" && (
-            <Typography
-              variant="small"
-              className="-mt-5 font-normal"
-              color="red"
-            >
-              This field is required
-            </Typography>
-          )}
-
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Your Email
+          <Typography color="gray" className="mt-1 font-normal text-center">
+            Nice to meet you! Enter your details to register.
           </Typography>
-          <Input
-            size="lg"
-            variant="outlined"
-            placeholder="name@mail.com"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-full"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            error={errors?.password?.type === "required"}
-            {...register("email", { required: true })}
-          />
-          {errors && errors?.password?.type === "required" && (
-            <Typography
-              variant="small"
-              className="-mt-5 font-normal"
-              color="red"
-            >
-              This field is required
-            </Typography>
-          )}
+          <form
+            onSubmit={handleSubmit(handleRegister)}
+            className="mt-8 mb-2"
+          >
+            <div className="mb-1 flex flex-col gap-6 w-full">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Your Name
+              </Typography>
+              <Input
+                size="lg"
+                placeholder="Name"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-full"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                error={errors?.password?.type === "required"}
+                {...register("name", { required: true })}
+              />
+              {errors && errors?.password?.type === "required" && (
+                <Typography
+                  variant="small"
+                  className="-mt-5 font-normal"
+                  color="red"
+                >
+                  This field is required
+                </Typography>
+              )}
 
-          {/* ===========   password    =============*/}
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Your Email
+              </Typography>
+              <Input
+                size="lg"
+                variant="outlined"
+                placeholder="name@mail.com"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900 w-full"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                error={errors?.password?.type === "required"}
+                {...register("email", { required: true })}
+              />
+              {errors && errors?.password?.type === "required" && (
+                <Typography
+                  variant="small"
+                  className="-mt-5 font-normal"
+                  color="red"
+                >
+                  This field is required
+                </Typography>
+              )}
 
-          <Typography variant="h6" color="blue-gray" className="-mb-3">
-            Password
-          </Typography>
-          <Input
-            type="password"
-            size="lg"
-            placeholder="********"
-            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-            labelProps={{
-              className: "before:content-none after:content-none",
-            }}
-            error={errors?.password?.type === "required"}
-            {...register("password", { required: true })}
-          />
-          {errors && errors?.password?.type === "required" && (
-            <Typography
-              variant="small"
-              className="-mt-5 font-normal"
-              color="red"
-            >
-              This field is required
-            </Typography>
-          )}
+              {/* ===========   password    =============*/}
 
-          <div className="flex gap-3">
-            {/* <Typography variant="h6" color="blue-gray" className="mb-3">
+              <Typography variant="h6" color="blue-gray" className="-mb-3">
+                Password
+              </Typography>
+              <Input
+                type="password"
+                size="lg"
+                placeholder="********"
+                className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                labelProps={{
+                  className: "before:content-none after:content-none",
+                }}
+                error={errors?.password?.type === "required"}
+                {...register("password", { required: true })}
+              />
+              {errors && errors?.password?.type === "required" && (
+                <Typography
+                  variant="small"
+                  className="-mt-5 font-normal"
+                  color="red"
+                >
+                  This field is required
+                </Typography>
+              )}
+
+              <div className="flex gap-3">
+                {/* <Typography variant="h6" color="blue-gray" className="mb-3">
               Your Blood Group
             </Typography> */}
-            <Select
-              size="lg"
-              variant="outlined"
-              label="Blood Group"
-              name="bloodGroup"
-              onChange={(v) => setBloodGroup(v)}
-            >
-              <Option value="A+">A+</Option>
-              <Option value="A-">A-</Option>
-              <Option value="B+">B+</Option>
-              <Option value="B-">B-</Option>
-              <Option value="AB+">AB+</Option>
-              <Option value="AB-">AB-</Option>
-              <Option value="O+">O+</Option>
-              <Option value="O-">O-</Option>
-            </Select>
+                <Select
+                  size="lg"
+                  variant="outlined"
+                  label="Blood Group"
+                  name="bloodGroup"
+                  onChange={(v) => setBloodGroup(v)}
+                >
+                  <Option value="A+">A+</Option>
+                  <Option value="A-">A-</Option>
+                  <Option value="B+">B+</Option>
+                  <Option value="B-">B-</Option>
+                  <Option value="AB+">AB+</Option>
+                  <Option value="AB-">AB-</Option>
+                  <Option value="O+">O+</Option>
+                  <Option value="O-">O-</Option>
+                </Select>
 
-            <Select
-              size="lg"
-              onChange={(v) => setDistrict(v)}
-              variant="outlined"
-              label="Select District"
-            >
-              {districts.map((district) => (
-                <Option key={district?.id} value={district?.name}>
-                  {district?.name}
-                </Option>
-              ))}
-            </Select>
+                <Select
+                  size="lg"
+                  onChange={(v) => setDistrict(v)}
+                  variant="outlined"
+                  label="Select District"
+                >
+                  {districts.sort().map((district) => (
+                    <Option key={district?.id} value={district?.name}>
+                      {district?.name}
+                    </Option>
+                  ))}
+                </Select>
 
-            <Select
-              size="lg"
-              onChange={(v) => setUpazila(v)}
-              variant="outlined"
-              label="Select Upazila"
-            >
-              {upazilas.map((upazila) => (
-                <Option key={upazila.id} value={upazila.name}>
-                  {upazila.name}
-                </Option>
-              ))}
-            </Select>
-          </div>
-          <input
-            required
-            type="file"
-            accept="image/*"
-            {...register("avatar")}
-          />
-        </div>
+                <Select
+                  size="lg"
+                  onChange={(v) => setUpazila(v)}
+                  variant="outlined"
+                  label="Select Upazila"
+                >
+                  {upazilas.sort().map((upazila) => (
+                    <Option key={upazila.id} value={upazila.name}>
+                      {upazila.name}
+                    </Option>
+                  ))}
+                </Select>
+              </div>
+              <div className="flex items-center gap-4">
+                <input
+                  required
+                  type="file"
+                  id="uploadAvatar"
+                  hidden
+                  accept="image/*"
+                  onChange={handleAvatarName}
 
-        <Button disabled={loading} type="submit" className="mt-6" fullWidth>
-          {loading ? (
-            <div className="flex justify-center">
-              {" "}
-              <Spinner />
+                />
+                <Button onClick={handleUpload} variant="outlined" className="flex items-center gap-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="h-5 w-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+                    />
+                  </svg>
+                  Choose Avater
+                </Button>
+                <span className="font-medium">{avatarName.name}</span>
+              </div>
             </div>
-          ) : (
-            "sign up"
-          )}
-        </Button>
-        <Typography color="gray" className="mt-4 text-center font-normal">
-          Already have an account?{" "}
-          <Link to="/logIn" className="font-medium text-gray-900">
-            Sign In
-          </Link>
-        </Typography>
-      </form>
-    </Card>
+
+            <Button disabled={loading} color="green" type="submit" className="mt-6" fullWidth>
+              {loading ? (
+                <div className="flex justify-center">
+                  {" "}
+                  <Spinner />
+                </div>
+              ) : (
+                "sign up"
+              )}
+            </Button>
+            <Typography color="gray" className="mt-4 text-center font-normal">
+              Already have an account?{" "}
+              <Link to="/logIn" className="font-medium text-gray-900">
+                Sign In
+              </Link>
+            </Typography>
+          </form>
+        </Card>
+        <div>
+          <Lottie options={{ animationData: Illustration }} width={500} />
+        </div>
+      </div>
+    </Container>
   );
 }

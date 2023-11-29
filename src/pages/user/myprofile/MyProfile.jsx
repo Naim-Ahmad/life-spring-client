@@ -1,23 +1,30 @@
 import {
-    Avatar,
-    Button,
-    Card,
-    CardBody,
-    CardHeader,
-    Typography,
+  Avatar,
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Typography,
 } from "@material-tailwind/react";
+import { useState } from "react";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import useUser from "../../../hooks/users/useUser";
+import EditProfile from "./EditProfile";
 
 export default function MyProfile() {
   const { data: user, isLoading, isPending } = useUser();
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = ()=>{
+    setOpen(!open)
+  }
 
   if ((isLoading, isPending)) return <LoadingSpinner />;
   console.log(user);
 
   return (
     <div>
-      <div className="flex justify-center">
+      <div className="flex justify-center items-center mt-32">
         <Card className="w-full p-10 max-w-[48rem] flex-row">
           <CardHeader
             shadow={false}
@@ -34,7 +41,7 @@ export default function MyProfile() {
                 }
                 alt="avatar"
               />
-              <Button>Edit Profile</Button>
+              <Button onClick={handleOpen} color="green" size="sm">Edit Profile</Button>
             </div>
           </CardHeader>
           <CardBody>
@@ -60,6 +67,7 @@ export default function MyProfile() {
           </CardBody>
         </Card>
       </div>
+      <EditProfile open={open} handleOpen={handleOpen}/>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Card, CardBody, Typography } from "@material-tailwind/react";
+import { Card, CardBody, CardHeader, Typography } from "@material-tailwind/react";
 import LoadingSpinner from "../../../components/LoadingSpinner";
 import useTests from "../../../hooks/tests/useTests";
 import SectionHeader from "../../shared/SectionHeader";
@@ -16,7 +16,10 @@ export default function AllTests() {
   return (
     <>
     <SectionHeader title="" description={<span>All <span className="text-green-500">Available</span> Service</span>}/>
-      <Card className=" w-full">
+      <Card className=" w-full mt-12">
+      <CardHeader shadow={false} className="text-center">
+        <Typography variant="h4">Total Service: {tests.length}</Typography>
+      </CardHeader>
         <CardBody className="overflow-scroll px-0">
           <table className="mt-4 w-full min-w-max table-auto text-left">
             <thead>

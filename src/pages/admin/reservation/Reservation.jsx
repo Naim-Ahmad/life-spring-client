@@ -1,15 +1,62 @@
-import { Card, CardBody, Typography } from '@material-tailwind/react';
+import { Button, Card, CardBody, CardHeader, Input, Typography } from '@material-tailwind/react';
+import { useEffect, useState } from 'react';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 import useReservation from '../../../hooks/reservation/useReservation';
+import useAuth from '../../../hooks/useAuth';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import SectionHeader from '../../shared/SectionHeader';
 import ReservationTable from './ReservationTable';
 
-const TABLE_HEAD = ["User", "Test Name", "Status", "Role", "Action"];
+const TABLE_HEAD = ["Patient", "Test Name", "Date", "Status", "Action"];
 export default function Reservation() {
+    const [reservations, setReservations] = useState([])
+    const { data, isPending, status } = useReservation()
+    const [searchText, setSearchText] = useState('')
+    const axiosSecure = useAxiosSecure()
+    const {user} = useAuth()
 
-    const { data: reservations = [], isPending } = useReservation()
+    useEffect(()=>{
+        if(status==='success'){
+            setReservations(data)
+        }
+    },[data, status])
 
     if (isPending) return <LoadingSpinner />
+
+    // console.log(reservations)
+    const handleSearch = async()=>{
+
+        try {
+            const userData = await axiosSecure.get(`/users/${user?.email}?search=${searchText}`)
+            // console.log(userData.data)
+            const reservationData = await axiosSecure.get(`/reservations/${userData.data._id}`)
+            console.log(reservationData.data)
+            setReservations(reservationData.data)
+            
+        } catch (error) {
+            console.log(error)
+        }
+       
+        // .then(res=> {
+        //     console.log(res.data)
+        //     const reservations = res.data.reservation.map(reservation=> {
+
+        //         const userObject = {
+        //             name: res.data.name, 
+        //             email: res.data.email, 
+        //             avatar: res.data.avatar 
+        //         }
+        //         reservation.user = userObject
+        //         return reservation
+                
+        //     });
+        //     console.log(reservations)
+        //     setReservations(reservations)
+        // })
+        // .catch(err=>{
+        //     console.log(err)
+        // })
+    }
 
     return (
 
@@ -17,6 +64,24 @@ export default function Reservation() {
             <SectionHeader title="" description={<span>All <span className='text-green-500'>Reservation</span></span>} />
 
             <Card className=" w-full">
+                <CardHeader shadow={false} className="text-center flex flex-row-reverse pt-6 items-center justify-around ">
+                    <div className="relative flex w-full max-w-[24rem]">
+                        <Input
+                            type="search"
+                            label="Search By Email"
+                            className="pr-20"
+                            onChange={(e)=> setSearchText(e.target.value)}
+                            value={searchText}
+                            containerProps={{
+                                className: "min-w-0",
+                            }}
+                        />
+                        <Button onClick={handleSearch} size="sm" color='green' className="!absolute right-1 top-1 rounded">
+                            Search
+                        </Button>
+                    </div>
+                    <Typography variant="h4">Total Reservation: {reservations.length}</Typography>
+                </CardHeader>
                 <CardBody className="overflow-scroll px-0">
                     <table className="mt-4 w-full min-w-max table-auto text-left">
                         <thead>
@@ -39,7 +104,7 @@ export default function Reservation() {
                         </thead>
                         <tbody>
 
-                            {reservations.map(reservation => <ReservationTable reservation={reservation} key={reservation._id} />)}
+                            {reservations.map((reservation, index) => <ReservationTable reservation={reservation} index={index} key={reservation._id} />)}
 
                         </tbody>
                     </table>
