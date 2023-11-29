@@ -40,12 +40,13 @@ export default function AuthProvider({ children }) {
     useEffect(()=> {
         const unsubscribe = onAuthStateChanged(auth, (currentUser)=>{
             setUser(currentUser)
+            setLoading(false)
             if(currentUser){
                 axios.post('/createToken', {email: currentUser?.email}, {withCredentials: true})
             }else{
                 axios.delete('/deleteToken', {withCredentials: true})
             }
-            setLoading(false)
+           
         })
         return ()=> unsubscribe()
     }, [])

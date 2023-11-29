@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import axios from "../config/axios.config";
 import Dashboard from "../layouts/dashboard/Dashboard";
 import MainLayout from "../layouts/mainLayout/MainLayout";
+import About from "../pages/about/About";
 import AddTest from "../pages/admin/addTest/AddTest";
 import AllUsers from "../pages/admin/allUsers/AllUsers";
 import AdminAllTests from "../pages/admin/alltests/AllTests";
@@ -9,6 +10,8 @@ import Reservation from "../pages/admin/reservation/Reservation";
 import AddBanner from "../pages/admin/settings/AddBanner";
 import AllBanners from "../pages/admin/settings/AllBanners";
 import AllTests from "../pages/allTests/AllTests";
+import Contacts from "../pages/contacts/Contacts";
+import Doctors from "../pages/doctors/Doctors";
 import Home from "../pages/home/Home";
 import LogIn from '../pages/logIn/LogIn';
 import Register from "../pages/register/Register";
@@ -37,7 +40,15 @@ const router = createBrowserRouter([{
         },
         {
             path:'about',
-            element: <Register/>
+            element: <About/>
+        },
+        {
+            path:'doctors',
+            element: <Doctors/>
+        },
+        {
+            path:'contact',
+            element: <Contacts/>
         },
         {
             path:'allTest',

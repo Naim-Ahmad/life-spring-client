@@ -2,7 +2,7 @@
   {
     "testName": "Complete Blood Count (CBC)",
     "description": "A blood test that measures different components of the blood, including red and white blood cells.",
-    "imageURL": "https://example.com/cbc_image.jpg",
+    "imageURL": "https://i.ibb.co/d4F1kbL/hospital-3098683-640.jpg",
     "date": "2023-12-01",
     "price": 75.0,
     "location": "City Medical Center",
@@ -23,7 +23,7 @@
   {
     "testName": "Cholesterol Panel",
     "description": "A blood test that measures the levels of cholesterol and triglycerides in the blood.",
-    "imageURL": "https://example.com/cholesterol_panel_image.jpg",
+    "imageURL": " https://i.ibb.co/CVgD435/equipment-3089883-640.jpg",
     "date": "2023-12-02",
     "price": 90.0,
     "location": "Metro Health Clinic",
@@ -41,10 +41,11 @@
       "2023-12-02 08:30 PM"
     ]
   },
+
   {
     "testName": "MRI Scan",
     "description": "An imaging test that uses a magnetic field and radio waves to create detailed images of the body's internal structures.",
-    "imageURL": "https://example.com/mri_scan_image.jpg",
+    "imageURL": "https://i.ibb.co/my9hD38/mri-2813899-640.jpg",
     "date": "2023-12-03",
     "price": 300.0,
     "location": "Advanced Imaging Center",
@@ -64,7 +65,7 @@
   {
     "testName": "Bone Density Test",
     "description": "A test that measures the strength and density of bones to assess the risk of fractures.",
-    "imageURL": "https://example.com/bone_density_test_image.jpg",
+    "imageURL": "https://i.ibb.co/BP1mgpw/lab-2815638-640.jpg",
     "date": "2023-12-04",
     "price": 120.0,
     "location": "OrthoCare Center",
@@ -85,7 +86,7 @@
   {
     "testName": "Thyroid Function Test",
     "description": "A blood test that measures the levels of thyroid hormones to assess thyroid function.",
-    "imageURL": "https://example.com/thyroid_function_test_image.jpg",
+    "imageURL": "https://i.ibb.co/Kjr4tYd/lab-2815639-640.jpg",
     "date": "2023-12-05",
     "price": 85.0,
     "location": "Endocrine Care Clinic",
@@ -106,7 +107,7 @@
   {
     "testName": "Electrocardiogram (ECG)",
     "description": "A test that records the electrical activity of the heart over a period of time.",
-    "imageURL": "https://example.com/ecg_image.jpg",
+    "imageURL": "https://i.ibb.co/1JG5Rct/laboratory-2815641-640.jpg",
     "date": "2023-12-06",
     "price": 60.0,
     "location": "CardioCare Center",
@@ -148,7 +149,7 @@
   {
     "testName": "Hemoglobin A1c Test",
     "description": "A blood test that measures average blood sugar levels over the past 2-3 months.",
-    "imageURL": "https://example.com/hemoglobin_a1c_test_image.jpg",
+    "imageURL": "https://i.ibb.co/d4F1kbL/hospital-3098683-640.jpg",
     "date": "2023-12-08",
     "price": 80.0,
     "location": "Diabetes Care Clinic",
@@ -169,7 +170,7 @@
   {
     "testName": "X-ray Imaging",
     "description": "An imaging test that uses X-rays to create pictures of the inside of the body.",
-    "imageURL": "https://example.com/xray_image.jpg",
+    "imageURL": "https://i.ibb.co/my9hD38/mri-2813899-640.jpg",
     "date": "2023-12-09",
     "price": 50.0,
     "location": "Radiology Center",

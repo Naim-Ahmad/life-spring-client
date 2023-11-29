@@ -5,12 +5,13 @@ import useIsAdmin from "../hooks/useIsAdmin"
 
 export default function AdminRoute({ children }) {
 
-    const { isAdmin } = useIsAdmin()
+    const { isAdmin, isLoading } = useIsAdmin()
     const { user, loading } = useAuth()
 
-    if (loading) return <LoadingSpinner />
+    if (loading || isLoading) return <LoadingSpinner />
 
     if (user && isAdmin) return children;
+    console.log(isAdmin)
 
     return <Navigate to="/dashboard"/>
 

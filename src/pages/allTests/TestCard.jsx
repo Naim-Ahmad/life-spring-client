@@ -1,10 +1,10 @@
 import {
-    Button,
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    Typography,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Typography,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 
@@ -32,7 +32,7 @@ export default function TestCard({ test }) {
       </CardBody>
       <CardFooter className="pt-3">
         <Link to={`/tests/seeDetails/${_id}`}>
-          <Button size="lg" fullWidth={true}>
+          <Button color="green" size="lg" fullWidth={true}>
             See Details
           </Button>
         </Link>

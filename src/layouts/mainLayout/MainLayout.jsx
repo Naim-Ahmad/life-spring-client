@@ -43,8 +43,11 @@ export default function MainLayout() {
 
   const navItems = [
     { value: "Home", route: "/" },
-    { value: "All Test", route: "/allTest" },
     user ? { value: "Dashboard", route: "/dashboard" } : null,
+    { value: "All Test", route: "/allTest" },
+    { value: "Our Doctors", route: "/doctors" },
+    { value: "About", route: "/about" },
+    { value: "Contact", route: "/contact" },
   ];
 
 
