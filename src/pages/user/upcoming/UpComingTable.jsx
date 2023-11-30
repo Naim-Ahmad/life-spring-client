@@ -63,7 +63,7 @@ export default function UpComingTable({ data: reservation, refetch }) {
       </td>
       <td className="p-4">
         <Typography variant="small" color="blue-gray" className="font-normal">
-          {test?.date || ""}
+          {new Date(test?.date).toLocaleDateString() || ""}
         </Typography>
       </td>
       <td className="p-4">

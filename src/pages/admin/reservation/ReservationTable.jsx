@@ -2,12 +2,15 @@ import { Avatar, Button, Chip, Tooltip, Typography } from "@material-tailwind/re
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import useReservation from "../../../hooks/reservation/useReservation";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SubmitResult from "./SubmitResult";
 
 export default function ReservationTable({ reservation, index }) {
     const { _id, test, slot, status, user } = reservation;
     // console.log(reservation, slot)
+
+    const {refetch} = useReservation()
 
     const [open, setOpen] = useState(false)
 
@@ -30,7 +33,7 @@ export default function ReservationTable({ reservation, index }) {
                     const res = await axiosSecure.delete(`/reservations/${_id}`);
                     console.log(res.data);
                     if (res.data._id) {
-                        // refetch();
+                        refetch();
                         Swal.fire({
                             title: "Canceled!",
                             text: "Canceled appointment Successfully",
@@ -89,7 +92,7 @@ export default function ReservationTable({ reservation, index }) {
 
             <td className="p-4">
                 <Typography variant="small" color="blue-gray" className="font-normal">
-                    {test?.date || ""}
+                    {new Date(test?.date).toLocaleDateString() || ""}
                 </Typography>
             </td>
             <td className="p-4">
