@@ -17,7 +17,7 @@ export default function AllTests() {
     <>
     <SectionHeader title="" description={<span>All <span className="text-green-500">Available</span> Service</span>}/>
       <Card className=" w-full mt-12">
-      <CardHeader shadow={false} className="text-center">
+      <CardHeader shadow={false} className="text-center -mt-16">
         <Typography variant="h4">Total Service: {tests.length}</Typography>
       </CardHeader>
         <CardBody className="overflow-scroll px-0">

@@ -119,7 +119,7 @@ export default function TestTable({ test, index }) {
           color="blue-gray"
           className="font-normal"
         >
-          {date}
+          {new Date(date).toLocaleDateString()}
         </Typography>
       </td>
 

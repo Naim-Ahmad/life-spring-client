@@ -21,18 +21,18 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionHeader from "../../shared/SectionHeader";
 
 const timeSlots = [
-  "07:00AM",
-  "08:00AM",
-  "09:00AM",
-  "10:00AM",
-  "11:00AM",
-  "12:00PM",
-  "01:00PM",
-  "02:00PM",
-  "03:00PM",
-  "04:00PM",
-  "05:00PM",
-  "06:00PM",
+  "07:00 AM",
+  "08:00 AM",
+  "09:00 AM",
+  "10:00 AM",
+  "11:00 AM",
+  "12:00 PM",
+  "01:00 PM",
+  "02:00 PM",
+  "03:00 PM",
+  "04:00 PM",
+  "05:00 PM",
+  "06:00 PM",
 ];
 
 const IMAGE_HOSTING_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY
@@ -46,6 +46,8 @@ export default function AddTest() {
   const handleAddTest = async (data) => {
     // console.log(data);
     // console.log(checkboxRef.current)
+    // console.log(new Date(data?.date))
+
     const dataEntries = Object.entries(data);
     const availableSlots = [];
     dataEntries.forEach((data) => {
@@ -70,9 +72,9 @@ export default function AddTest() {
         price: data?.price,
         imageURL: res.data?.data?.display_url,
         availableSlots,
-        date: data?.date
+        date: new Date(data?.date)
       };
-      //   console.log(testData)
+        // console.log(new Date(data?.date))
 
       const insertedData = await axiosSecure.post('/tests', testData)
       if (insertedData?.data?._id) {
@@ -93,7 +95,7 @@ export default function AddTest() {
   };
 
   return (
-    <Card className="w-3/4 mx-auto">
+    <Card className="w-3/4 mx-auto py-6 my-16">
       <CardHeader shadow={false}>
         <SectionHeader title="" description={<span>Add a <span className="text-green-500">Service</span></span>} />
       </CardHeader>

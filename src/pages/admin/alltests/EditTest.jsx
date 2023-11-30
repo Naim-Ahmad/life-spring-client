@@ -22,19 +22,19 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionHeader from "../../shared/SectionHeader";
 
 const timeSlots = [
-    "07:00AM",
-    "08:00AM",
-    "09:00AM",
-    "10:00AM",
-    "11:00AM",
-    "12:00PM",
-    "01:00PM",
-    "02:00PM",
-    "03:00PM",
-    "04:00PM",
-    "05:00PM",
-    "06:00PM",
-];
+    "07:00 AM",
+    "08:00 AM",
+    "09:00 AM",
+    "10:00 AM",
+    "11:00 AM",
+    "12:00 PM",
+    "01:00 PM",
+    "02:00 PM",
+    "03:00 PM",
+    "04:00 PM",
+    "05:00 PM",
+    "06:00 PM",
+]; 
 
 const IMAGE_HOSTING_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY
     }`;
@@ -78,7 +78,7 @@ export default function EditTest({ open, handleOpen, test }) {
                 price: data?.price,
                 imageURL: imageData.image ? res.data?.data?.display_url: test?.imageURL,
                 availableSlots,
-                date: data?.date
+                date: new Date(data?.date)
             };
             //   console.log(testData)
 
@@ -127,9 +127,7 @@ export default function EditTest({ open, handleOpen, test }) {
                                 />
                             </div>
 
-                            {/* <div className="mb-12 ">
-              <Textarea {...register("details")} />
-            </div> */}
+                           
                             <div className="mb-12">
                                 <Input
                                     variant="static"
@@ -145,6 +143,7 @@ export default function EditTest({ open, handleOpen, test }) {
                                     type="date"
                                     label="Date"
                                     defaultValue={test?.date}
+                                    value={test?.date}
                                     {...register("date")}
                                 />
                             </div>

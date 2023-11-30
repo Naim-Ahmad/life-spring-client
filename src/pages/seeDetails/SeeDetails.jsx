@@ -23,7 +23,7 @@ export default function SeeDetails() {
 
   return (
     <div className="pb-10">
-      <SectionHeader title="Service Details" description={<span className="text-green-500">{test?.testName}</span>} />
+      <SectionHeader title="Service Details" description="" />
       <Container>
         <Card className="w-full flex-row">
           <CardHeader

@@ -86,7 +86,7 @@ export default function Footer() {
             className="mb-4 text-center font-normal text-blue-gray-900 md:mb-0"
           >
             &copy; {currentYear}{" "}
-            <a href="https://click-jobs-2193e.firebaseapp.com/">Click Jobs</a>.
+            <a href="https://life-spring-diagnostics.firebaseapp.com">Life Spring</a>.
             All Rights Reserved.
           </Typography>
           <div className="flex gap-4 text-blue-gray-900 sm:justify-center">

@@ -1,7 +1,10 @@
+import SectionHeader from "../shared/SectionHeader";
 
 export default function Doctors() {
 
     return (
-        <div>doctors</div>
+        <div>
+            <SectionHeader title="Our Doctors"/>
+        </div>
     )
 }
