@@ -11,7 +11,7 @@ const IMAGE_HOSTING_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.
     }`;
 export default function AddBanner() {
 
-    const { register, handleSubmit } = useForm()
+    const { register, handleSubmit, reset } = useForm()
 
     const [loading, setLoading] = useState(false)
 
@@ -39,6 +39,7 @@ export default function AddBanner() {
 
                 const { data: insertedData } = await axiosSecure.post('/banners', bannerData)
                 if (insertedData?._id) {
+                    reset()
                     setLoading(false)
                     Swal.fire({
                         icon: "success",
@@ -63,15 +64,21 @@ export default function AddBanner() {
                     <CardBody>
                         <form onSubmit={handleSubmit(handleAddBanner)}>
                             <Input {...register('bannerTitle')} label="Hero Title" className='mb-10' containerProps={{ className: "mb-6" }} />
+
+                            <Input {...register('promoCode')} label="Promo Code" className='mb-10' containerProps={{ className: "mb-6" }} />
+
                             <Textarea {...register('bannerDescription')} label="Hero Description" containerProps={{ className: "mb-6" }} />
 
                             <Typography variant='small' className='font-medium'>
                                 Select Banner
                             </Typography>
+
                             <div>
                                 <input {...register('bannerURL')} type="file" accept='image/*' name="bannerURL" id="" className='mt-3 mb-5' />
                             </div>
-                            <Button disabled={loading} type='submit' fullWidth color='green'>{loading ? <div className='flex justify-center'><Spinner /></div> : 'Upload Banner'}</Button>
+                            <Button disabled={loading} type='submit' fullWidth color='green'>
+                                {loading ? <div className='flex justify-center'><Spinner /></div> : 'Upload Banner'}
+                            </Button>
                         </form>
                     </CardBody>
                 </Card>

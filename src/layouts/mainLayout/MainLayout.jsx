@@ -46,7 +46,7 @@ export default function MainLayout() {
     user ? { value: "Dashboard", route: "/dashboard" } : null,
     { value: "All Test", route: "/allTest" },
     { value: "Our Doctors", route: "/doctors" },
-    { value: "About", route: "/about" },
+    { value: "Blogs", route: "/blogs" },
     { value: "Contact", route: "/contact" },
   ];
 

@@ -21,6 +21,8 @@ export default function AllTests() {
     }
   })
 
+  console.log(data)
+
   useEffect(() => {
     if (status === 'success') {
       setTests(data)

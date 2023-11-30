@@ -1,7 +1,6 @@
 import {
   ArrowPathRoundedSquareIcon,
   ChevronDownIcon,
-  ChevronRightIcon,
   Cog6ToothIcon,
   InboxIcon,
   UserCircleIcon
@@ -22,6 +21,7 @@ import { MdOutlineAddPhotoAlternate } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
+import { HeartIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { GrTest } from "react-icons/gr";
@@ -137,12 +137,15 @@ export default function Sidebar() {
                       All Banners
                     </ListItem>
                   </NavLink>
+
+                  <NavLink to="/dashboard/admin/recommendation">
                   <ListItem>
                     <ListItemPrefix>
-                      <ChevronRightIcon strokeWidth={3} className="h-3 w-5" />
+                      <HeartIcon strokeWidth={3} className="h-5 w-5" />
                     </ListItemPrefix>
-                    Projects
+                    Add Recommendation
                   </ListItem>
+                  </NavLink>
                 </List>
               </AccordionBody>
             </Accordion>

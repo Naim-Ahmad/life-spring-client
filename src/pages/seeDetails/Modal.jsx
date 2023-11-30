@@ -16,8 +16,14 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import useBanners from "../../hooks/banner/useBanners";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useUser from "../../hooks/users/useUser";
+
+const messageObject = {
+  success: '',
+  error: ''
+}
 
 export function Modal({ handleOpen, open, data }) {
   //   console.log(slots);
@@ -34,10 +40,16 @@ export function Modal({ handleOpen, open, data }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const {data:user} = useUser()
+  const { data: user } = useUser()
   // console.log(user)
 
-  const { data: reservationData, mutateAsync, status} = useMutation({
+  const { data: banner = {} } = useBanners(`/banners?isActive=true`)
+
+  const [promo, setPromo] = useState('')
+  const [message, setMessage] = useState(messageObject)
+  const [isApplied, setIsApplied] = useState(false)
+
+  const { mutateAsync } = useMutation({
     mutationKey: ["reservation"],
     mutationFn: async (reservationInfo) => {
       const res = await axiosSecure.post(
@@ -58,6 +70,19 @@ export function Modal({ handleOpen, open, data }) {
       .post("/create_payment_intent", { price: data?.price })
       .then((res) => setClientSecret(res.data.clientSecret));
   }, []);
+
+  const handlePromo = () => {
+    if (banner.promoCode.toLowerCase() === promo.toLowerCase() && !isApplied) {
+      const finalTotal = (totalAmount / 100) * 80
+      setTotalAmount(finalTotal)
+      // console.log(finalTotal)
+      setMessage({ ...messageObject, success: 'Applied' })
+      setIsApplied(true)
+    } else {
+      setMessage({ ...messageObject, error: 'Invalid Coupon' })
+      // toast.error('Invalid Coupon Code')
+    }
+  }
 
   //   console.log(stripe, stripeElement);
   const handleChange = (v) => {
@@ -113,29 +138,29 @@ export function Modal({ handleOpen, open, data }) {
           transactionId: paymentIntent?.id,
           slot,
           date: data?.date,
-          paymentAmount: paymentIntent?.amount,
+          paymentAmount: paymentIntent?.amount / 100,
           testId: data?._id,
           user: user?._id
         };
         console.log("reservationInfo Object", reservationInfo);
         handleOpen();
         try {
-         await mutateAsync(reservationInfo);
+          await mutateAsync(reservationInfo);
 
           // console.log("reservationData", reservationData);
           // console.log("responseData", data);
 
-         
-            navigate("/dashboard/upComingAppointment");
-            Swal.fire({
-              title: "Payment Successful!",
-              icon: "success",
-              showConfirmButton: false,
-              timer: 2000,
-            });
 
-            setLoading(false);
-        
+          navigate("/dashboard/upComingAppointment");
+          Swal.fire({
+            title: "Payment Successful!",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000,
+          });
+
+          setLoading(false);
+
         } catch (error) {
           setLoading(false);
           toast.error(error.message);
@@ -202,18 +227,25 @@ export function Modal({ handleOpen, open, data }) {
               </div>
 
               <Typography variant="small" className="font-bold">
-                Total Amount: {totalAmount}
+                Total Amount: <span className={message.success && 'text-green-500'}>{totalAmount}</span>
               </Typography>
 
-              <div className=" flex gap-4">
-                <Input
-                  containerProps={{ className: "min-w-[6rem] max-w-[7rem]" }}
-                  size="md"
-                  label="Promo Code"
-                />
-                <Button variant="text" size="sm">
-                  Apply
-                </Button>
+              <div>
+                <div className=" flex gap-4">
+                  <Input
+                    containerProps={{ className: "min-w-[6rem] max-w-[7rem]" }}
+                    size="md"
+                    label="Promo Code"
+                    onChange={(e) => {
+                      setPromo(e.target.value)
+                      setMessage(messageObject)
+                    }}
+                  />
+                  <Button disabled={isApplied} onClick={handlePromo} variant="text" size="sm">
+                    Apply
+                  </Button>
+                </div>
+                {message.error && <Typography variant="small" color="red">{message.error}</Typography>}
               </div>
             </CardBody>
             <CardFooter className="pt-0">

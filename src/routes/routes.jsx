@@ -2,13 +2,14 @@ import { createBrowserRouter } from "react-router-dom";
 import axios from "../config/axios.config";
 import Dashboard from "../layouts/dashboard/Dashboard";
 import MainLayout from "../layouts/mainLayout/MainLayout";
-import About from "../pages/about/About";
+import Blogs from "../pages/Blogs/Blogs";
 import AddTest from "../pages/admin/addTest/AddTest";
 import AllUsers from "../pages/admin/allUsers/AllUsers";
 import AdminAllTests from "../pages/admin/alltests/AllTests";
 import Reservation from "../pages/admin/reservation/Reservation";
 import AddBanner from "../pages/admin/settings/AddBanner";
 import AllBanners from "../pages/admin/settings/AllBanners";
+import Recommendation from "../pages/admin/settings/Recommendation";
 import AllTests from "../pages/allTests/AllTests";
 import Contacts from "../pages/contacts/Contacts";
 import Doctors from "../pages/doctors/Doctors";
@@ -20,6 +21,7 @@ import MyProfile from "../pages/user/myprofile/MyProfile";
 import TestResult from "../pages/user/testResult/TestResult";
 import UpComingAppointment from "../pages/user/upcoming/UpComingAppointment";
 import AdminRoute from "./AdminRoute";
+import BlockedRoute from "./BlockedRoute";
 import PrivateRoute from './PrivateRoute';
 
 const router = createBrowserRouter([{
@@ -39,8 +41,8 @@ const router = createBrowserRouter([{
             element: <Register/>
         },
         {
-            path:'about',
-            element: <About/>
+            path:'blogs',
+            element: <Blogs/>
         },
         {
             path:'doctors',
@@ -56,7 +58,7 @@ const router = createBrowserRouter([{
         },
         {
             path: `tests/seeDetails/:id`,
-            element: <PrivateRoute><SeeDetails/></PrivateRoute>,
+            element: <PrivateRoute><BlockedRoute><SeeDetails/></BlockedRoute></PrivateRoute>,
             loader: async ({params})=> {
                const res = await axios.get(`/tests/${params.id}`)
                return res.data;
@@ -64,7 +66,7 @@ const router = createBrowserRouter([{
         },
         {
             path: 'dashboard',
-            element: <PrivateRoute><Dashboard/></PrivateRoute>,
+            element: <PrivateRoute><BlockedRoute><Dashboard/></BlockedRoute></PrivateRoute>,
             children: [
                 {
                     path:'upComingAppointment',
@@ -103,6 +105,10 @@ const router = createBrowserRouter([{
                 {
                     path:'admin/allBanners',
                     element: <AdminRoute><AllBanners/></AdminRoute>
+                },
+                {
+                    path:'admin/recommendation',
+                    element: <AdminRoute><Recommendation/></AdminRoute>
                 },
             ]
         }
