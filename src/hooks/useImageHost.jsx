@@ -9,7 +9,7 @@ export default function useImageHost() {
     mutationFn: async (imageData) => {
       const response = await axios.post(IMAGE_HOSTING_URL, imageData, {
         headers: {
-          "content-type": "multipart/form-data",
+          "content-type": "reservationrt/form-data",
         },
       });
       return response.data;
