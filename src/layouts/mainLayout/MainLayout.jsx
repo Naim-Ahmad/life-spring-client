@@ -170,8 +170,46 @@ export default function MainLayout() {
 
           <Collapse open={openNav}>
             {navList}
-            <div className="flex items-center gap-x-1">
-              <Link to="/register">
+            <div className="flex items-center gap-x-1 w-full">
+            {user ? (
+                  <Button
+                  variant="gradient"
+                  color="green"
+                  size="sm"
+                  fullWidth
+                    onClick={handleSignOut}
+                    className="flex-1"
+                  >
+                    <span>Sign Out</span>
+                  </Button>
+                ) : (
+                  <>
+                    <Link to="/register" className="flex-1">
+                      <Button
+                        variant="outlined"
+                        color="green"
+                        size="sm"
+                        fullWidth
+                       
+                      >
+                        <span>Sign Up</span>
+                      </Button>
+                    </Link>
+
+                    <Link to="/logIn" className="flex-1">
+                      <Button
+                        variant="gradient"
+                        color="green"
+                        size="sm"
+                        fullWidth
+                        
+                      >
+                        <span>Sign in</span>
+                      </Button>
+                    </Link>
+                  </>
+                )}
+              {/* <Link to="/register">
                 <Button fullWidth color="green" variant="text" size="sm" className="">
                   <span>Sign Up</span>
                 </Button>
@@ -180,7 +218,7 @@ export default function MainLayout() {
                 <Button fullWidth color="green" variant="gradient" size="sm" className="">
                   <span>Sign in</span>
                 </Button>
-              </Link>
+              </Link> */}
             </div>
           </Collapse>
         </div>

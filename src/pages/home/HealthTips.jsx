@@ -2,14 +2,12 @@ import { Button, Carousel, IconButton, Typography } from "@material-tailwind/rea
 import { useEffect, useState } from "react";
 import Container from "../../components/Container";
 import axios from "../../config/axios.config";
-import useGetDevice from "../../hooks/useGetDevice";
 import SectionHeader from "../shared/SectionHeader";
 
 export default function HealthTips() {
 
     const [health, setHealth] = useState([])
 
-    const { device } = useGetDevice()
 
     useEffect(() => {
         axios.get('/recommendations')

@@ -14,8 +14,8 @@ export default function Discount() {
     if (isLoading) return;
 
     return (
-        <div className="px-6 -translate-y-20">
-            <Card className="w-full flex mx-auto items-center  max-w-[48rem] flex-row">
+        <div className="px-6 md:-translate-y-20">
+            <Card className="w-full flex mx-auto items-center my-10 md:my-0 max-w-[48rem] md:flex-row">
                 <CardHeader
                     shadow={false}
                     floated={false}
