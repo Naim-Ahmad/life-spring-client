@@ -50,7 +50,7 @@ export default function AllTests() {
     <main className="py-10">
       <SectionHeader title="All Tests" description={<span>Explore our all <span className="text-green-500">services</span></span>} />
       <Container>
-        <CardHeader shadow={false} className="text-center flex -mt-10 mb-10 flex-row-reverse pt-6 items-center justify-around ">
+        <CardHeader shadow={false} className="text-center flex -mt-4 mb-10 flex-row-reverse pt-6 items-center justify-around ">
           <form onSubmit={handleSearch} className="relative flex w-full max-w-[24rem] ">
             <Input
               type="date"
