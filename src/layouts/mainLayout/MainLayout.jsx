@@ -17,12 +17,12 @@ export default function MainLayout() {
 
   const { user, logOut } = useAuth();
 
-  // React.useEffect(() => {
-  //   window.addEventListener(
-  //     "resize",
-  //     () => window.innerWidth <= 100 && setOpenNav(false)
-  //   );
-  // }, []);
+  React.useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth <= 100 && setOpenNav(false)
+    );
+  }, []);
 
   const handleSignOut = () => {
     const toastId = toast.loading("Loading...");
@@ -61,6 +61,7 @@ export default function MainLayout() {
                 as="li"
                 variant="small"
                 className="p-1 font-medium"
+                color="black"
               >
                 {item?.value}
               </Typography>
