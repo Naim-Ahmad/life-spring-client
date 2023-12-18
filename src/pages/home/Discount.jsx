@@ -34,9 +34,12 @@ export default function Discount() {
                         Purchase TK 200 or
                         above & get 20% off
                     </Typography>
-                    <Typography color="gray" className="mb-8 font-normal flex gap-2">
-                        Use Promo Code <Chip color="green" value={banner?.promoCode}></Chip>
+                    <div className="flex items-center mb-8 gap-2">
+                    <Typography color="gray" className=" font-normal">
+                        Use Promo Code 
                     </Typography>
+                    <Chip color="green" value={banner?.promoCode}></Chip>
+                    </div>
                 </div>
 
             </CardBody>

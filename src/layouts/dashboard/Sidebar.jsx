@@ -26,7 +26,6 @@ import { useState } from "react";
 import { CiImageOn } from "react-icons/ci";
 import { GrTest } from "react-icons/gr";
 import useReservation from "../../hooks/reservation/useReservation";
-import useIsActive from "../../hooks/useIsActive";
 import useIsAdmin from "../../hooks/useIsAdmin";
 
 export default function Sidebar() {
@@ -41,9 +40,6 @@ export default function Sidebar() {
 
   const {isAdmin} = useIsAdmin()
   // console.log(isAdmin)
-
-  const {isActive} = useIsActive()
-
 
 
   return (

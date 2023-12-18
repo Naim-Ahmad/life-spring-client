@@ -2,7 +2,7 @@ import { Button, Card, CardBody, CardHeader, Typography } from "@material-tailwi
 import { Link } from "react-router-dom";
 
 export default function FeaturedCard({ data }) {
-    console.log(data?.imageURL)
+    // console.log(data?.imageURL)
 
     return (
         <Card

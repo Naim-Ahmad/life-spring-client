@@ -15,7 +15,7 @@ export default function HealthTips() {
             })
     }, [])
 
-    console.log(health)
+    // console.log(health)
 
     return (
         <section className="py-16">

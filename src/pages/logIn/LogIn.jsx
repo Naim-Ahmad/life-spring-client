@@ -32,9 +32,13 @@ export default function LogIn() {
     // console.log(data);
 
     logIn(data?.email, data?.password)
-      .then(() => {
-        toast.success('Log in successful!')
-        state ? navigate(state) : navigate("/dashboard");
+      .then((userData) => {
+        const user = userData.user;
+        // console.log(user)
+        if(user){
+          toast.success('Log in successful!')
+          state ? navigate(state) : navigate("/dashboard");
+        }
       })
       .catch(err => {
         toast.error(err.message)

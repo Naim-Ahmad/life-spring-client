@@ -5,7 +5,7 @@ import useBanners from "../../hooks/banner/useBanners";
 export default function Header() {
 
     const {data:banner = {} , isLoading} = useBanners(`/banners?isActive=true`)
-    console.log(banner)
+    // console.log(banner)
 
     if(isLoading) return
 
