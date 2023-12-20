@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 export default function TestCard({ test }) {
   const {_id, imageURL, price, testName, description } = test;
   return (
-    <Card className="w-full max-w-[26rem] shadow-lg">
+    <Card className="w-full max-w-[26rem] mx-auto shadow-lg">
       <CardHeader className="min-h-[200px] " floated={false} color="blue-gray">
         <img src={imageURL} alt={testName} />
         <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60 " />

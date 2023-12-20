@@ -1,7 +1,5 @@
 /**
  *
- * optional
- * TODO: when user cancel apointment then add this available time slot also
- * TODO: control usr booking
+ * TODO: fix date of update test form
  *
  */

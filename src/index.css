@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 .active {
-  color: green;
-  font-weight: bold;
+  color: green !important;
+  font-weight: bold !important;
 }
 
 .text-shadow {

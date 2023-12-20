@@ -61,7 +61,6 @@ export default function MainLayout() {
                 as="li"
                 variant="small"
                 className="p-1 font-medium"
-                color="black"
               >
                 {item?.value}
               </Typography>

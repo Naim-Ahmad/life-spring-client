@@ -12,6 +12,7 @@ import TestCard from "./TestCard";
 
 export default function AllTests() {
   const [tests, setTests] = useState([])
+  const [searchDate, setSearchDate] = useState('')
 
   const { data, isPending, status } = useQuery({
     queryKey: ['getLimitedPageData'],
@@ -21,7 +22,6 @@ export default function AllTests() {
     }
   })
 
-  console.log(data)
 
   useEffect(() => {
     if (status === 'success') {
@@ -31,8 +31,8 @@ export default function AllTests() {
 
   const handleSearch = (e) => {
     e.preventDefault()
-
     const searchDate = e.target.date.value;
+    setSearchDate(searchDate)
     // console.log(searchDate)
     axios.get(`/getPageData?date=${searchDate}`)
       .then(res => {
@@ -44,6 +44,14 @@ export default function AllTests() {
 
   if (isPending) return <LoadingSpinner />;
 
+  var currentDate = new Date();
+  var formattedDate = currentDate.toLocaleDateString().split('/');
+  formattedDate.splice(0, 0, formattedDate[2])
+  formattedDate.pop()
+  // console.log(formattedDate.join('-'));
+
+
+  console.log(data)
   // console.log(tests);
 
   return (
@@ -56,6 +64,7 @@ export default function AllTests() {
               type="date"
               label="Search By Date"
               name="date"
+              min={formattedDate.join('-')}
               className="pr-24"
             // containerProps={{
             //   className: "min-w-0",
@@ -65,13 +74,17 @@ export default function AllTests() {
               Search
             </Button>
           </form>
-
         </CardHeader>
-        {tests.length ? <div className="grid grid-cols-3 gap-8 pb-16">
-          {tests.map((test) => (
-            <TestCard test={test} key={test._id} />
-          ))}
-        </div> : <div className="flex justify-center min-h-[50svh] "><Typography className="mt-16" variant="h2">No Service Found</Typography></div>}
+
+        {tests.length
+          ? (<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 pb-16  content-center">
+            {tests.map((test) => (
+              <TestCard test={test} key={test._id} />
+            ))}
+          </div>) :
+          (<div className="flex justify-center min-h-[50svh] ">
+            <Typography className="mt-16 text-lg text-center md:text-2xl lg:text-3xl" variant="h2">No Service Found from {searchDate === '' ? 'Today' : new Date().toLocaleDateString()} , Please Select another Date.</Typography>
+          </div>)}
         <Pagination state={setTests} />
       </Container>
     </main>
