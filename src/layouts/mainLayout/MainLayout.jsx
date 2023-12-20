@@ -8,12 +8,14 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 import toast from "react-hot-toast";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Footer from "../footer/Footer";
 
 export default function MainLayout() {
   const [openNav, setOpenNav] = React.useState(false);
+  const {pathname} = useLocation()
+  // console.log(params)
 
   const { user, logOut } = useAuth();
 
@@ -208,16 +210,7 @@ export default function MainLayout() {
                     </Link>
                   </>
                 )}
-              {/* <Link to="/register">
-                <Button fullWidth color="green" variant="text" size="sm" className="">
-                  <span>Sign Up</span>
-                </Button>
-              </Link>
-              <Link to="logIn">
-                <Button fullWidth color="green" variant="gradient" size="sm" className="">
-                  <span>Sign in</span>
-                </Button>
-              </Link> */}
+            
             </div>
           </Collapse>
         </div>
@@ -225,7 +218,7 @@ export default function MainLayout() {
 
       <Outlet />
 
-      <Footer />
+      {pathname.split('/').includes('dashboard') || <Footer />}
     </div>
   );
 }

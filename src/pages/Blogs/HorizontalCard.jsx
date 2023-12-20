@@ -7,7 +7,7 @@ import {
 } from "@material-tailwind/react";
 
 export function HorizontalCard({ data }) {
-    console.log(data)
+    // console.log(data)
 
     return (
         <Card className="w-full max-w-[48rem] md:flex-row">

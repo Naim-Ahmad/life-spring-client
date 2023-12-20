@@ -1,7 +1,9 @@
+import emailjs from '@emailjs/browser';
 import { Button, Card, CardBody, Input, Textarea, Typography } from "@material-tailwind/react";
 import { useForm } from "react-hook-form";
 import { FaEnvelope, FaPhone, FaWhatsapp } from "react-icons/fa";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
+import Swal from 'sweetalert2';
 import Container from "../../components/Container";
 import SectionHeader from "../shared/SectionHeader";
 
@@ -10,6 +12,27 @@ export default function Contacts() {
     const { handleSubmit, register, formState: { errors } } = useForm()
 
     const handleForm = (data) => {
+
+        console.log(data)
+        emailjs.send('service_ov9xwqc', 'template_0fu4sfy', data)
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: "Sent",
+                    text: "Message Sent Successfully",
+                    timer: 1800,
+                    showConfirmButton: false
+                })
+            })
+            .catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: "Error",
+                    text: err.message,
+                    timer: 1800,
+                    showConfirmButton: false
+                })
+            })
 
     }
 
@@ -90,7 +113,7 @@ export default function Contacts() {
                                         className: "before:content-none after:content-none",
                                     }}
                                     error={errors?.password?.type === "required"}
-                                    {...register("name", { required: true })}
+                                    {...register("user_name", { required: true })}
                                 />
                                 {errors && errors?.password?.type === "required" && (
                                     <Typography
@@ -114,7 +137,7 @@ export default function Contacts() {
                                         className: "before:content-none after:content-none",
                                     }}
                                     error={errors?.password?.type === "required"}
-                                    {...register("email", { required: true })}
+                                    {...register("user_email", { required: true })}
                                 />
                                 {errors && errors?.password?.type === "required" && (
                                     <Typography
@@ -139,7 +162,7 @@ export default function Contacts() {
                                         className: "before:content-none after:content-none",
                                     }}
                                     error={errors?.password?.type === "required"}
-                                    {...register("message", { required: true })}
+                                    {...register("user_message", { required: true })}
                                 />
                                 {errors && errors?.password?.type === "required" && (
                                     <Typography

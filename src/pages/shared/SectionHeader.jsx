@@ -1,6 +1,7 @@
 import { Typography } from "@material-tailwind/react";
+import PropTypes from 'prop-types';
 
-export default function SectionHeader({ title, description }) {
+export default function SectionHeader({ title= '', description = '' }) {
 
 
     return (
@@ -11,4 +12,12 @@ export default function SectionHeader({ title, description }) {
             </div>
         </div>
     )
+}
+
+SectionHeader.propTypes = {
+    title: PropTypes.string,
+    description: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.node
+    ])
 }
