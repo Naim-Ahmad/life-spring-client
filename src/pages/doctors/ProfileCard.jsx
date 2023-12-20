@@ -1,18 +1,18 @@
 import {
-    Card,
-    CardBody,
-    CardFooter,
-    CardHeader,
-    Chip,
-    Tooltip,
-    Typography,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Chip,
+  Tooltip,
+  Typography,
 } from "@material-tailwind/react";
 import { FaFacebook, FaLinkedin, FaTwitter } from 'react-icons/fa';
    
   export default function ProfileCard({data:doctor}) {
     const {profileImage, name, about, specialist } = doctor
     return (
-      <Card>
+      <Card className="mx-auto">
         <CardHeader floated={false} className="h-80">
           <img src={profileImage} alt="profile-picture"/>
         </CardHeader>

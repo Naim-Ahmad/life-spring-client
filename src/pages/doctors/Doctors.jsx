@@ -15,7 +15,7 @@ export default function Doctors() {
     return (
         <Container>
             <SectionHeader title="Our Doctors"/>
-            <div className="grid grid-cols-3 gap-8 pb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 pb-10">
                 {doctors.map((doctor, ind)=> <ProfileCard data={doctor} key={ind}/>)}
             </div>
         </Container>

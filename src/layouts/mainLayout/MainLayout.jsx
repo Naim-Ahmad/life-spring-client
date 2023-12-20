@@ -167,7 +167,7 @@ export default function MainLayout() {
             </div>
           </div>
 
-          <Collapse open={openNav}>
+          <Collapse open={openNav} className="text-black">
             {navList}
             <div className="flex items-center gap-x-1 w-full">
             {user ? (

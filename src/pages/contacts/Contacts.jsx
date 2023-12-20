@@ -18,7 +18,7 @@ export default function Contacts() {
             <SectionHeader title="Contact Us" description={<span></span>} />
 
             <Container>
-                <div className="grid grid-cols-3 gap-16 text-center">
+                <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-16 text-center">
                     <Card className="mt-6">
                         <CardBody>
                             <FaPhone size={40} className="mb-5 mx-auto" color="green" />
@@ -55,7 +55,7 @@ export default function Contacts() {
 
                     </Card>
                 </div>
-                <div className="flex  gap-16 justify-between items-center ">
+                <div className="flex flex-col md:flex-row gap-16 justify-between items-center">
 
                     <div className="flex-1">
                         <Card className="mt-6">
@@ -73,7 +73,7 @@ export default function Contacts() {
 
                     </div>
 
-                    <div className="flex-1">
+                    <div className="flex-1 w-full">
                         <form
                             onSubmit={handleSubmit(handleForm)}
                             className="mt-8 mb-2"

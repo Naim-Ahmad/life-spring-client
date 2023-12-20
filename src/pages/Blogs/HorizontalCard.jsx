@@ -10,11 +10,11 @@ export function HorizontalCard({ data }) {
     console.log(data)
 
     return (
-        <Card className="w-full max-w-[48rem] flex-row">
+        <Card className="w-full max-w-[48rem] md:flex-row">
             <CardHeader
                 shadow={false}
                 floated={false}
-                className="m-0 w-2/5 shrink-0 rounded-r-none"
+                className="m-0 md:w-2/5 shrink-0 md:rounded-r-none"
             >
                 <img
                     src={data?.banner}

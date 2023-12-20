@@ -64,7 +64,7 @@ export default function AllTests() {
               type="date"
               label="Search By Date"
               name="date"
-              min={formattedDate.join('-')}
+              // min={formattedDate.join('-')}
               className="pr-24"
             // containerProps={{
             //   className: "min-w-0",
