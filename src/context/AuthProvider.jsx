@@ -43,6 +43,7 @@ export default function AuthProvider({ children }) {
             setLoading(false)
             if(currentUser){
                 axios.post('/createToken', {email: currentUser?.email}, {withCredentials: true})
+                
             }else{
                 axios.delete('/deleteToken', {withCredentials: true})
             }

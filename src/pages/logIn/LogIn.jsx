@@ -24,7 +24,7 @@ export default function LogIn() {
   } = useForm();
 
   const navigate = useNavigate()
-  const {state} = useLocation()
+  const { state } = useLocation()
 
   const { logIn, loading, setLoading } = useAuth()
 
@@ -34,10 +34,10 @@ export default function LogIn() {
     logIn(data?.email, data?.password)
       .then((userData) => {
         const user = userData.user;
-        // console.log(user)
-        if(user){
+
+        if (user) {
           toast.success('Log in successful!')
-          state ? navigate(state) : navigate("/dashboard");
+
         }
       })
       .catch(err => {
@@ -47,12 +47,16 @@ export default function LogIn() {
       })
   };
 
+  if (!loading) {
+    state ? navigate(state) : navigate("/dashboard");
+  }
+
   return (
     <Container>
       <div className="flex justify-evenly flex-row-reverse py-16">
         <Card className="w-96">
           <CardHeader
-           shadow={false}
+            shadow={false}
             className="mb-4 grid h-28 place-items-center"
           >
             <Typography variant="h3" className="-mb-16">
