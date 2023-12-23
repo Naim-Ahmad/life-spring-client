@@ -118,12 +118,12 @@ export default function Register() {
 
   const handleAvatarName = e => {
     setAvatarName(e.target.files[0])
-    console.dir(e.target)
+    // console.dir(e.target)
   }
 
   return (
     <Container>
-      <div className="flex justify-evenly">
+      <div className="flex mx-auto flex-col-reverse lg:flex-row py-6 justify-between">
         <Card color="transparent" shadow={false} >
           <Typography variant="h1" color="blue-gray" className="text-center">
             Sign Up
@@ -209,10 +209,8 @@ export default function Register() {
                 </Typography>
               )}
 
-              <div className="flex gap-3">
-                {/* <Typography variant="h6" color="blue-gray" className="mb-3">
-              Your Blood Group
-            </Typography> */}
+              <div className="flex gap-3 flex-col lg:flex-row">
+
                 <Select
                   size="lg"
                   variant="outlined"
@@ -305,8 +303,8 @@ export default function Register() {
             </Typography>
           </form>
         </Card>
-        <div>
-          <Lottie options={{ animationData: Illustration }} width={500} />
+        <div className="max-w-[400px] min-w-[300px] lg:min-w-[500px] mb-6 mx-auto">
+          <Lottie options={{ animationData: Illustration }} />
         </div>
       </div>
     </Container>
