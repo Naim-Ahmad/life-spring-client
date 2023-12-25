@@ -303,7 +303,7 @@ export default function Register() {
             </Typography>
           </form>
         </Card>
-        <div className="max-w-[400px] min-w-[300px] lg:min-w-[500px] mb-6 mx-auto">
+        <div className="max-w-[400px] min-w-[300px] lg:min-w-[500px] mb-6 mx-auto lg:m-auto">
           <Lottie options={{ animationData: Illustration }} />
         </div>
       </div>

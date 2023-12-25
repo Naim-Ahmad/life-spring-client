@@ -12,7 +12,7 @@ export default function useIsActive() {
         axiosSecure.get(`/isActive?email=${user?.email}`)
             .then(res => {
                 setIsActive(res.data)
-                console.log(res.data)
+                // console.log(res.data)
             })
         setIsLoading(false)
     }, [user, axiosSecure])
