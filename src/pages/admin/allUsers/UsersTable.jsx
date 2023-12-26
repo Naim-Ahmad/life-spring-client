@@ -112,6 +112,7 @@ export default function UsersTable({ user, index }) {
   };
  
   const handleOpen = () => setOpen(!open);
+// console.log(device)
 
   return (
     <>
@@ -150,7 +151,7 @@ export default function UsersTable({ user, index }) {
       </td>
 
       <td className={classes}>
-        <div className="w-max">
+        <div className="w-max ">
           <Chip
             variant="ghost"
             size="sm"

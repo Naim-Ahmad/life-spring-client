@@ -34,10 +34,8 @@ export default function LogIn() {
     logIn(data?.email, data?.password)
       .then((userData) => {
         const user = userData.user;
-
         if (user) {
           toast.success('Log in successful!')
-
         }
       })
       .catch(err => {
@@ -48,7 +46,7 @@ export default function LogIn() {
   };
 
   if (!loading) {
-    state ? navigate(state) : navigate("/dashboard");
+    state ? navigate(state) : navigate("/dashboard/profile");
   }
 
   return (

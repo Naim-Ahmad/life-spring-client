@@ -74,7 +74,7 @@ export default function AddTest() {
         availableSlots,
         date: new Date(data?.date)
       };
-        // console.log(new Date(data?.date))
+      // console.log(new Date(data?.date))
 
       const insertedData = await axiosSecure.post('/tests', testData)
       if (insertedData?.data?._id) {
@@ -95,16 +95,16 @@ export default function AddTest() {
   };
 
   return (
-    <Card className="w-3/4 mx-auto py-6 my-16">
+    <Card className="mx-auto pt-10">
       <CardHeader shadow={false}>
         <SectionHeader title="" description={<span>Add a <span className="text-green-500">Service</span></span>} />
       </CardHeader>
       <CardBody>
         <form
-          className="grid grid-cols-2 gap-6  mx-auto"
+          className="grid md:grid-cols-2 gap-6  mx-auto"
           onSubmit={handleSubmit(handleAddTest)}
         >
-          <div>
+          <div className="col-span-2 md:col-auto">
             <div className="mb-12">
               <Input
                 variant="static"
@@ -130,8 +130,26 @@ export default function AddTest() {
               />
             </div>
             <div className="">
-           
+
               <input {...register("imageURL")} type="file" accept="image/*" />
+              
+                {/* <Button  variant="outlined" className="flex items-center gap-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                    className="h-5 w-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
+                    />
+                  </svg>
+                  Choose Avatar
+                </Button> */}
             </div>
           </div>
 
@@ -140,7 +158,7 @@ export default function AddTest() {
             ============================================
         */}
 
-          <div className="relative">
+          <div className="relative col-span-2 md:col-auto"> 
             <div className="">
               <Typography variant="h6" color="blue-gray" className="">
                 Available Time Slots
@@ -175,11 +193,11 @@ export default function AddTest() {
 
 
           <div className="col-span-2">
-                <Textarea
-                  label="Test Description"
-                  {...register("description")}
-                />
-              </div>
+            <Textarea
+              label="Test Description"
+              {...register("description")}
+            />
+          </div>
 
           <div className="col-span-2">
             <Button color="green" disabled={loading} type="submit" fullWidth>

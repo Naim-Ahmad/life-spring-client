@@ -49,9 +49,7 @@ export default function AllTests() {
   formattedDate.splice(0, 0, formattedDate[2])
   formattedDate.pop()
   // console.log(formattedDate.join('-'));
-
-
-  console.log(data)
+  // console.log(data)
   // console.log(tests);
 
   return (

@@ -24,7 +24,7 @@ import useAuth from "../../hooks/useAuth";
 
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
-import { CiImageOn } from "react-icons/ci";
+import { CiImageOn, CiLogout } from "react-icons/ci";
 import { GrTest } from "react-icons/gr";
 import useReservation from "../../hooks/reservation/useReservation";
 import useIsAdmin from "../../hooks/useIsAdmin";
@@ -44,9 +44,9 @@ export default function Sidebar() {
 
 
   return (
-    <Card className="h-[100svh] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+    <Card className="h-[100svh] w-full p-4 shadow-xl shadow-blue-gray-900/5">
       {isAdmin ? (
-        <>
+        <div className="xl:mx-auto">
           <div className="mb-2 p-4">
             <Typography variant="h5" color="blue-gray">
               Admin <span className="text-green-500">DashBoard</span>
@@ -148,9 +148,9 @@ export default function Sidebar() {
             </Accordion>
 
           </List>
-        </>
+        </div>
       ) : (
-        <>
+        <div className="xl:mx-auto">
           <div className="mb-2 p-4">
             <Typography variant="h5" color="blue-gray">
               Hi! <span className="text-green-500">{user?.displayName}</span>
@@ -183,11 +183,11 @@ export default function Sidebar() {
             </NavLink>
 
           </List>
-        </>
+        </div>
       )}
       <hr className="my-3" />
 
-      <List>
+      <List className="mx-auto">
         <NavLink to="/">
           <ListItem>
             <ListItemPrefix>
@@ -196,7 +196,12 @@ export default function Sidebar() {
             Home
           </ListItem>
         </NavLink>
-
+        <ListItem className="text-red-300 font-medium">
+          <ListItemPrefix>
+            <CiLogout className="h-5 w-5" />
+          </ListItemPrefix>
+          Log out
+        </ListItem>
       </List>
 
     </Card >

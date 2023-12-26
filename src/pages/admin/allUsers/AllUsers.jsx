@@ -17,22 +17,22 @@ export default function AllUsers() {
     },
   });
 
-  if (isPending) return <LoadingSpinner />;
 
-  //   console.log(data);
+
+  if (isPending) return <LoadingSpinner />;
 
   return (
     <>
-    <SectionHeader title="" description={<span>All <span className="text-green-500">Users</span></span>}/>
-      <Card className=" w-full">
-        <CardBody className="overflow-scroll px-0">
-          <table className="mt-4 w-full min-w-max table-auto text-left">
+      <Card className="w-full pt-6">
+        <SectionHeader title="" description={<span className="text-4xl">All <span className="text-green-500">Users</span></span>} />
+        <CardBody className="overflow-scroll p-0 ">
+          <table className=" w-full min-w-max table-auto text-left">
             <thead>
               <tr>
                 {TABLE_HEAD?.map((head) => (
                   <th
                     key={head}
-                    className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                    className={`border-y border-blue-gray-100 bg-blue-gray-50/50 p-4`}
                   >
                     <Typography
                       variant="small"
