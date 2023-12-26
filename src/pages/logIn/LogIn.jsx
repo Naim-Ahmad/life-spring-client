@@ -53,8 +53,8 @@ export default function LogIn() {
 
   return (
     <Container>
-      <div className="flex justify-evenly flex-row-reverse py-16">
-        <Card className="w-96">
+      <div className="flex justify-evenly flex-col-reverse md:flex-row-reverse py-16">
+        <Card className="md:w-96">
           <CardHeader
             shadow={false}
             className="mb-4 grid h-28 place-items-center"

@@ -101,7 +101,7 @@ export default function Contacts() {
                             onSubmit={handleSubmit(handleForm)}
                             className="mt-8 mb-2"
                         >
-                            <div className="mb-1 flex flex-col gap-6 w-full">
+                            <div className="mb-3 flex flex-col gap-6 w-full">
                                 <Typography variant="h6" color="blue-gray" className="-mb-3">
                                     Your Name
                                 </Typography>
@@ -173,11 +173,6 @@ export default function Contacts() {
 
                                     </Typography>
                                 )}
-
-
-
-
-
 
                             </div>
 

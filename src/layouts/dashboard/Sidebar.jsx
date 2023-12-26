@@ -2,6 +2,7 @@ import {
   ArrowPathRoundedSquareIcon,
   ChevronDownIcon,
   Cog6ToothIcon,
+  HomeIcon,
   InboxIcon,
   UserCircleIcon
 } from "@heroicons/react/24/solid";
@@ -38,12 +39,12 @@ export default function Sidebar() {
     setOpen(open === value ? 0 : value);
   };
 
-  const {isAdmin} = useIsAdmin()
+  const { isAdmin } = useIsAdmin()
   // console.log(isAdmin)
 
 
   return (
-    <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+    <Card className="h-[100svh] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
       {isAdmin ? (
         <>
           <div className="mb-2 p-4">
@@ -135,12 +136,12 @@ export default function Sidebar() {
                   </NavLink>
 
                   <NavLink to="/dashboard/admin/recommendation">
-                  <ListItem>
-                    <ListItemPrefix>
-                      <HeartIcon strokeWidth={3} className="h-5 w-5" />
-                    </ListItemPrefix>
-                    Add Recommendation
-                  </ListItem>
+                    <ListItem>
+                      <ListItemPrefix>
+                        <HeartIcon strokeWidth={3} className="h-5 w-5" />
+                      </ListItemPrefix>
+                      Add Recommendation
+                    </ListItem>
                   </NavLink>
                 </List>
               </AccordionBody>
@@ -180,10 +181,24 @@ export default function Sidebar() {
                 Test Result
               </ListItem>
             </NavLink>
-            
+
           </List>
         </>
       )}
-    </Card>
+      <hr className="my-3" />
+
+      <List>
+        <NavLink to="/">
+          <ListItem>
+            <ListItemPrefix>
+              <HomeIcon className="h-5 w-5" />
+            </ListItemPrefix>
+            Home
+          </ListItem>
+        </NavLink>
+
+      </List>
+
+    </Card >
   );
 }

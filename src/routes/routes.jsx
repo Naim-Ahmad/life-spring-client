@@ -24,96 +24,99 @@ import AdminRoute from "./AdminRoute";
 import BlockedRoute from "./BlockedRoute";
 import PrivateRoute from './PrivateRoute';
 
-const router = createBrowserRouter([{
-    path: '/',
-    element: <MainLayout/>,
-    children: [
-        {
-            index: true,
-            element: <Home/>
-        },
-        {
-            path: 'logIn',
-            element: <LogIn/>
-        },
-        {
-            path:'register',
-            element: <Register/>
-        },
-        {
-            path:'blogs',
-            element: <Blogs/>
-        },
-        {
-            path:'doctors',
-            element: <Doctors/>
-        },
-        {
-            path:'contact',
-            element: <Contacts/>
-        },
-        {
-            path:'allTest',
-            element: <AllTests/>
-        },
-        {
-            path: `tests/seeDetails/:id`,
-            element: <PrivateRoute><BlockedRoute><SeeDetails/></BlockedRoute></PrivateRoute>,
-            loader: async ({params})=> {
-               const res = await axios.get(`/tests/${params.id}`)
-               return res.data;
-            }
-        },
-        {
-            path: 'dashboard',
-            element: <PrivateRoute><BlockedRoute><Dashboard/></BlockedRoute></PrivateRoute>,
-            children: [
-                {
-                    path:'upComingAppointment',
-                    element: <UpComingAppointment/>
-                },
-                {
-                    path:'profile',
-                    element: <MyProfile/>
-                },
-                {
-                    path:'testResult',
-                    element: <TestResult/>
-                },
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <MainLayout />,
+        children: [
+            {
+                index: true,
+                element: <Home />
+            },
+            {
+                path: 'logIn',
+                element: <LogIn />
+            },
+            {
+                path: 'register',
+                element: <Register />
+            },
+            {
+                path: 'blogs',
+                element: <Blogs />
+            },
+            {
+                path: 'doctors',
+                element: <Doctors />
+            },
+            {
+                path: 'contact',
+                element: <Contacts />
+            },
+            {
+                path: 'allTest',
+                element: <AllTests />
+            },
+            {
+                path: `tests/seeDetails/:id`,
+                element: <PrivateRoute><BlockedRoute><SeeDetails /></BlockedRoute></PrivateRoute>,
+                loader: async ({ params }) => {
+                    const res = await axios.get(`/tests/${params.id}`)
+                    return res.data;
+                }
+            },
 
-                /*********  admin  **********/
-                {
-                    path:'admin/allTests',
-                    element: <AdminRoute> <AdminAllTests/></AdminRoute>
-                },
-                {
-                    path:'admin/allUsers',
-                    element:<AdminRoute><AllUsers/></AdminRoute>
-                },
-                {
-                    path:'admin/reservation',
-                    element: <AdminRoute><Reservation/></AdminRoute>
-                },
-                {
-                    path:'admin/addTest',
-                    element:<AdminRoute> <AddTest/></AdminRoute>
-                },
-                {
-                    path:'admin/addBanner',
-                    element: <AdminRoute><AddBanner/></AdminRoute>
-                },
-                {
-                    path:'admin/allBanners',
-                    element: <AdminRoute><AllBanners/></AdminRoute>
-                },
-                {
-                    path:'admin/recommendation',
-                    element: <AdminRoute><Recommendation/></AdminRoute>
-                },
-            ]
-        }
-        
-    ]
-}])
+
+        ]
+    },
+    {
+        path: 'dashboard',
+        element: <PrivateRoute><BlockedRoute><Dashboard /></BlockedRoute></PrivateRoute>,
+        children: [
+            {
+                path: 'upComingAppointment',
+                element: <UpComingAppointment />
+            },
+            {
+                path: 'profile',
+                element: <MyProfile />
+            },
+            {
+                path: 'testResult',
+                element: <TestResult />
+            },
+
+            /*********  admin  **********/
+            {
+                path: 'admin/allTests',
+                element: <AdminRoute> <AdminAllTests /></AdminRoute>
+            },
+            {
+                path: 'admin/allUsers',
+                element: <AdminRoute><AllUsers /></AdminRoute>
+            },
+            {
+                path: 'admin/reservation',
+                element: <AdminRoute><Reservation /></AdminRoute>
+            },
+            {
+                path: 'admin/addTest',
+                element: <AdminRoute> <AddTest /></AdminRoute>
+            },
+            {
+                path: 'admin/addBanner',
+                element: <AdminRoute><AddBanner /></AdminRoute>
+            },
+            {
+                path: 'admin/allBanners',
+                element: <AdminRoute><AllBanners /></AdminRoute>
+            },
+            {
+                path: 'admin/recommendation',
+                element: <AdminRoute><Recommendation /></AdminRoute>
+            },
+        ]
+    }
+])
 
 export default router;
