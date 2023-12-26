@@ -14,7 +14,7 @@ export default function AllTests() {
   //   console.log(data);
 
   return (
-    <>
+    <div className="pt-6">
     <SectionHeader title="" description={<span>All <span className="text-green-500">Available</span> Service</span>}/>
       <Card className=" w-full mt-12">
       <CardHeader shadow={false} className="text-center -mt-16">
@@ -48,6 +48,6 @@ export default function AllTests() {
           </table>
         </CardBody>
       </Card>
-    </>
+    </div>
   );
 }
