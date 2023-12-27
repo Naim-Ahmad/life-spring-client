@@ -95,7 +95,7 @@ export default function AddTest() {
   };
 
   return (
-    <Card className="mx-auto pt-10">
+    <Card className="mx-auto pt-16">
       <CardHeader shadow={false}>
         <SectionHeader title="" description={<span>Add a <span className="text-green-500">Service</span></span>} />
       </CardHeader>

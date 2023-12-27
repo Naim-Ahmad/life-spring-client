@@ -65,8 +65,8 @@ export default function Recommendation() {
     if (isLoading) return <LoadingSpinner />
 
     return (
-        <>
-            <SectionHeader title="Health Recommendation" />
+        <div className="pt-6">
+            <SectionHeader title="Health Recommendation" description={<span className="text-base">This data will Add to recommendation section in home page</span>} />
             <Container>
             <div>
                 <Card className='max-w-4xl mx-auto'>
@@ -93,6 +93,6 @@ export default function Recommendation() {
                 </Card>
             </div>
             </Container>
-        </>
+        </div>
     )
 }

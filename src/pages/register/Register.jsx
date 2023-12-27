@@ -16,6 +16,7 @@ import Lottie from "react-lottie";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Illustration from '../../assets/loginIllustration.json';
 import Container from "../../components/Container";
+import UploadButton from "../../components/UploadButton";
 import axiosPublic from "../../config/axios.config";
 import useAuth from "../../hooks/useAuth";
 
@@ -30,8 +31,8 @@ export default function Register() {
   const [upazilas, setUpazilas] = useState([]);
   const navigate = useNavigate();
   const { state } = useLocation();
+  const [avatarName, setAvatarName] = useState('')
 
-  const [avatarName, setAvatarName] = useState('No Image Selected')
 
   const {
     register,
@@ -45,13 +46,14 @@ export default function Register() {
     fetch("districts.json")
       .then((res) => res.json())
       .then((data) => {
-        setDistricts(data[2].data);
+        const sortedDistricts = data[2].data.sort((obj1, obj2)=> obj1.name.localeCompare(obj2.name))
+        setDistricts(sortedDistricts);
       });
 
     fetch("upazilas.json")
       .then((res) => res.json())
       .then((data) => {
-        setUpazilas(data[2].data);
+        setUpazilas(data[2].data.sort((a, b)=> a.name.localeCompare(b.name)));
       });
   }, []);
 
@@ -109,16 +111,21 @@ export default function Register() {
       });
   };
 
-
-  const handleUpload = () => {
-    // avatarRef.click()
-    console.log('first')
-    document.getElementById('uploadAvatar').click()
+  const handleDistrict = (v)=> {
+    setDistrict(v)
+    const finedDistricts = districts.find(dist => dist.name.toLowerCase() === v.toLowerCase())
+    const filteredSubDistricts = upazilas.filter(upazi=> upazi.district_id == finedDistricts.id)
+    setUpazilas(filteredSubDistricts)
   }
 
-  const handleAvatarName = e => {
-    setAvatarName(e.target.files[0])
-    // console.dir(e.target)
+  const handleSubDistrict = (v)=> {
+    setUpazila(v)
+    const finedSubDistricts = upazilas.find(dist => dist.name.toLowerCase() === v.toLowerCase())
+    // console.log(finedSubDistricts)
+    const finedDistricts = districts.filter(dis=> dis.id == finedSubDistricts.district_id)
+    setDistricts(finedDistricts)
+    // console.log(finedDistricts)
+
   }
 
   return (
@@ -230,11 +237,11 @@ export default function Register() {
 
                 <Select
                   size="lg"
-                  onChange={(v) => setDistrict(v)}
+                  onChange={handleDistrict}
                   variant="outlined"
                   label="Select District"
                 >
-                  {districts.sort().map((district) => (
+                  {districts.map((district) => (
                     <Option key={district?.id} value={district?.name}>
                       {district?.name}
                     </Option>
@@ -243,7 +250,7 @@ export default function Register() {
 
                 <Select
                   size="lg"
-                  onChange={(v) => setUpazila(v)}
+                  onChange={handleSubDistrict}
                   variant="outlined"
                   label="Select Upazila"
                 >
@@ -254,35 +261,7 @@ export default function Register() {
                   ))}
                 </Select>
               </div>
-              <div className="flex items-center gap-4">
-                <input
-                  required
-                  type="file"
-                  id="uploadAvatar"
-                  hidden
-                  accept="image/*"
-                  onChange={handleAvatarName}
-
-                />
-                <Button onClick={handleUpload} variant="outlined" className="flex items-center gap-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={2}
-                    stroke="currentColor"
-                    className="h-5 w-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-                    />
-                  </svg>
-                  Choose Avatar
-                </Button>
-                <span className="font-medium">{avatarName.name}</span>
-              </div>
+             <UploadButton imgData={avatarName} setImgData={setAvatarName}/>
             </div>
 
             <Button disabled={loading} color="green" type="submit" className="mt-6" fullWidth>

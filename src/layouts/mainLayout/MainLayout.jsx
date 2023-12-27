@@ -7,9 +7,9 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import React from "react";
-import toast from "react-hot-toast";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useSignOut from "../../hooks/useSignOut";
 import Footer from "../footer/Footer";
 
 export default function MainLayout() {
@@ -17,7 +17,9 @@ export default function MainLayout() {
   const {pathname} = useLocation()
   // console.log(params)
 
-  const { user, logOut } = useAuth();
+  const { user } = useAuth();
+
+  const handleSignOut = useSignOut()
 
   React.useEffect(() => {
     window.addEventListener(
@@ -26,22 +28,7 @@ export default function MainLayout() {
     );
   }, []);
 
-  const handleSignOut = () => {
-    const toastId = toast.loading("Loading...");
-    logOut()
-      .then(() => {
-        toast.success("Log out successful", {
-          id: toastId,
-        });
-      })
-      .catch((err) => {
-        // setLoading(false)
-        toast.error(err.message, {
-          id: toastId,
-        });
-        console.log(err);
-      });
-  };
+
 
   const navItems = [
     { value: "Home", route: "/" },

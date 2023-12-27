@@ -28,9 +28,11 @@ import { CiImageOn, CiLogout } from "react-icons/ci";
 import { GrTest } from "react-icons/gr";
 import useReservation from "../../hooks/reservation/useReservation";
 import useIsAdmin from "../../hooks/useIsAdmin";
+import useSignOut from "../../hooks/useSignOut";
 
 export default function Sidebar() {
   const { user } = useAuth();
+const handleSignOut = useSignOut()
 
   const [open, setOpen] = useState(0)
   const { data: reservations = [] } = useReservation()
@@ -41,6 +43,7 @@ export default function Sidebar() {
 
   const { isAdmin } = useIsAdmin()
   // console.log(isAdmin)
+
 
 
   return (
@@ -196,7 +199,7 @@ export default function Sidebar() {
             Home
           </ListItem>
         </NavLink>
-        <ListItem className="text-red-300 font-medium">
+        <ListItem onClick={handleSignOut} className="text-red-300 font-medium">
           <ListItemPrefix>
             <CiLogout className="h-5 w-5" />
           </ListItemPrefix>

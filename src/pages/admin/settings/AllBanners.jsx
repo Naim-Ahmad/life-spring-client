@@ -17,7 +17,7 @@ export default function AllBanners() {
 
 
     return (
-        <div className="pb-16">
+        <div className="py-16 pt-6">
             <SectionHeader title="All Banners" description={<span>You Can select any <span className="text-green-500">banners</span></span>} />
             <Container>
                 <div className="grid grid-cols-3 gap-6">

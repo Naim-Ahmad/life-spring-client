@@ -9,6 +9,7 @@ import SectionHeader from '../../shared/SectionHeader';
 
 const IMAGE_HOSTING_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY
     }`;
+    
 export default function AddBanner() {
 
     const { register, handleSubmit, reset } = useForm()
@@ -57,7 +58,7 @@ export default function AddBanner() {
     }
 
     return (
-        <div>
+        <div className='py-6'>
             <SectionHeader title="Add Banner" description={<span className='text-lg text-gray-600'>Fill Banner Info to <span className='text-green-500'>Upload Banner</span> </span>} />
             <div>
                 <Card className='max-w-4xl mx-auto'>

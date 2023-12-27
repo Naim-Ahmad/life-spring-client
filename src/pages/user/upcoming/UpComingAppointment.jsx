@@ -16,10 +16,10 @@ export default function UpComingAppointment() {
   // console.log(data);
 
   return (
-    <div>
+    <div className="pt-6">
       <SectionHeader title="" description={<span>Upcoming <span className="text-green-500">Appointment</span></span>}/>
-      <Card className="h-full w-full overflow-scroll">
-        <table className="w-full min-w-max table-auto text-left">
+      <Card className="h-full w-full min-h-screen overflow-scroll">
+       <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
               {TABLE_HEAD.map((head) => (
@@ -39,11 +39,13 @@ export default function UpComingAppointment() {
             </tr>
           </thead>
           <tbody>
-            {reservations.map((reservation) => ( reservation?.status !== 'delivered' &&
+            {reservations.length ? reservations.map((reservation) => ( reservation?.status !== 'delivered' &&
               <UpComingTable key={reservation._id} refetch={refetch} data={reservation} />
-            ))}
+            )): <td colSpan={5} className="text-center text-2xl font-bold py-10">No Upcoming Appointment</td>}
+            
           </tbody>
         </table>
+        
       </Card>
     </div>
   );

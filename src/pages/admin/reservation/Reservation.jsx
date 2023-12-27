@@ -36,31 +36,12 @@ export default function Reservation() {
         } catch (error) {
             console.log(error)
         }
-       
-        // .then(res=> {
-        //     console.log(res.data)
-        //     const reservations = res.data.reservation.map(reservation=> {
-
-        //         const userObject = {
-        //             name: res.data.name, 
-        //             email: res.data.email, 
-        //             avatar: res.data.avatar 
-        //         }
-        //         reservation.user = userObject
-        //         return reservation
-                
-        //     });
-        //     console.log(reservations)
-        //     setReservations(reservations)
-        // })
-        // .catch(err=>{
-        //     console.log(err)
-        // })
+    
     }
 
     return (
 
-        <>
+        <div className='pt-6'>
             <SectionHeader title="" description={<span>All <span className='text-green-500'>Reservation</span></span>} />
 
             <Card className=" w-full">
@@ -112,6 +93,6 @@ export default function Reservation() {
             </Card>
 
 
-        </>
+        </div>
     )
 }

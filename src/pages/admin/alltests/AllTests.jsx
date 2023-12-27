@@ -14,8 +14,8 @@ export default function AllTests() {
   //   console.log(data);
 
   return (
-    <div className="pt-6">
-    <SectionHeader title="" description={<span>All <span className="text-green-500">Available</span> Service</span>}/>
+    <div className="py-6">
+    <SectionHeader title="" description={<span>All Available<span className="text-green-500"> Services</span></span>}/>
       <Card className=" w-full mt-12">
       <CardHeader shadow={false} className="text-center -mt-16">
         <Typography variant="h4">Total Service: {tests.length}</Typography>

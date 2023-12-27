@@ -28,7 +28,7 @@ export default function TestResult() {
     if (isPending) return <LoadingSpinner />;
     console.log(data)
     return (
-        <div>
+        <div className="pt-6">
             <SectionHeader title="" description={<span>Test <span className="text-green-500">Result</span></span>} />
             <Card className="h-full w-full overflow-scroll">
                 <table className="w-full min-w-max table-auto text-left">
@@ -51,8 +51,8 @@ export default function TestResult() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((reservation) => reservation?.status === 'delivered' && <ResultTable key={reservation._id} refetch={refetch} data={reservation} />
-                        )}
+                        {data.length ? data.map((reservation) => reservation?.status === 'delivered' && <ResultTable key={reservation._id} refetch={refetch} data={reservation} />
+                        ): <td colSpan={5} className="text-center text-2xl font-bold py-10">No Test Result</td>}
                     </tbody>
                 </table>
             </Card>

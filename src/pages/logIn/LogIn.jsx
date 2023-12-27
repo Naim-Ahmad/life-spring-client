@@ -8,6 +8,7 @@ import {
   Spinner,
   Typography
 } from "@material-tailwind/react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Lottie from "react-lottie";
@@ -26,7 +27,7 @@ export default function LogIn() {
   const navigate = useNavigate()
   const { state } = useLocation()
 
-  const { logIn, loading, setLoading } = useAuth()
+  const { logIn, user, loading, setLoading } = useAuth()
 
   const handleLogin = (data) => {
     // console.log(data);
@@ -36,6 +37,7 @@ export default function LogIn() {
         const user = userData.user;
         if (user) {
           toast.success('Log in successful!')
+          setLoading(false)
         }
       })
       .catch(err => {
@@ -45,9 +47,17 @@ export default function LogIn() {
       })
   };
 
-  if (!loading) {
-    state ? navigate(state) : navigate("/dashboard/profile");
-  }
+  useEffect(() => {
+    if (!loading && user) {
+
+      setTimeout(() => {
+        state ? navigate(state) : navigate("/dashboard/profile");
+      }, 1000)
+
+    }
+  }, [loading, state, user, navigate]);
+
+  // console.log(Cookies.get())
 
   return (
     <Container>

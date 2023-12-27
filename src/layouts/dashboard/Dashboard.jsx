@@ -15,7 +15,7 @@ export default function Dashboard() {
   return (
 
     <>
-      <div className="fixed z-20 lg:hidden">
+      <div className="fixed z-50 lg:hidden">
         {!open
           ? <IconButton color="green" variant="outlined" className="fixed top-2 left-2 z-20" onClick={handleOpen}><MdMenu className="w-6 h-6 " /></IconButton>
           : <IconButton color="green" variant="text" className="absolute top-5 left-56 z-20" onClick={handleOpen}><MdClose className="w-6 h-6 " /></IconButton>}
@@ -26,7 +26,7 @@ export default function Dashboard() {
         {/* sidebar */}
 
         <div className="col-span-3">
-          <div className={`absolute top-2 transition-all z-10 ${open ? "left-0" : "-left-96"} lg:left-0 lg:sticky top-0`}>
+          <div className={`absolute top-2 transition-all z-40 ${open ? "left-0" : "-left-96"} lg:left-0 lg:sticky top-0`}>
             <Sidebar />
           </div>
         </div>

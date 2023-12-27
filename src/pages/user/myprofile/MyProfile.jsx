@@ -20,11 +20,11 @@ export default function MyProfile() {
   }
 
   if ((isLoading, isPending)) return <LoadingSpinner />;
-  console.log(user);
+  // console.log(user);
 
   return (
     <div>
-      <div className="flex justify-center items-center mt-32">
+      <div className="flex justify-center items-center pt-32">
         <Card className="w-full p-10 max-w-[48rem] flex-row">
           <CardHeader
             shadow={false}
