@@ -17,6 +17,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import UploadButton from "../../../components/UploadButton";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionHeader from "../../shared/SectionHeader";
 
@@ -42,6 +43,8 @@ export default function AddTest() {
   const { handleSubmit, register } = useForm();
   const axiosSecure = useAxiosSecure()
   const [loading, setLoading] = useState(false)
+
+  const [imageData, setImgData] = useState(null)
 
   const handleAddTest = async (data) => {
     // console.log(data);
@@ -131,7 +134,7 @@ export default function AddTest() {
             </div>
             <div className="">
 
-              <input {...register("imageURL")} type="file" accept="image/*" />
+              {/* <input {...register("imageURL")} type="file" accept="image/*" /> */}
               
                 {/* <Button  variant="outlined" className="flex items-center gap-3">
                   <svg
@@ -150,6 +153,7 @@ export default function AddTest() {
                   </svg>
                   Choose Avatar
                 </Button> */}
+                <UploadButton label="Choose Thumbnail" imgData={imageData} setImgData={setImgData}/>
             </div>
           </div>
 

@@ -9,6 +9,7 @@ import {
 import React from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useIsAdmin from "../../hooks/useIsAdmin";
 import useSignOut from "../../hooks/useSignOut";
 import Footer from "../footer/Footer";
 
@@ -28,11 +29,11 @@ export default function MainLayout() {
     );
   }, []);
 
-
+  const isAdmin = useIsAdmin()
 
   const navItems = [
     { value: "Home", route: "/" },
-    user ? { value: "Dashboard", route: "/dashboard" } : null,
+    user ? { value: "Dashboard", route: `/dashboard/${!isAdmin ? 'allUsers': 'profile'}` } : null,
     { value: "All Test", route: "/allTest" },
     { value: "Our Doctors", route: "/doctors" },
     { value: "Blogs", route: "/blogs" },

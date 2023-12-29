@@ -1,12 +1,15 @@
 import { Button } from '@material-tailwind/react'
 import { useRef } from 'react'
 
-export default function UploadButton({ label, imgData, setImgData }) {
+export default function UploadButton({ label, imgData, setImgData, required }) {
+
+  // console.log(setImgData)
 
   const inpRef = useRef()
 
   const handleAvatarName = e => {
     setImgData(e.target.files[0])
+    // console.log(e.target.files[0])
     // console.dir(e.target)
   }
 
@@ -17,7 +20,7 @@ export default function UploadButton({ label, imgData, setImgData }) {
   return (
     <div className="flex items-center gap-4">
       <input
-        required
+        required={required}
         type="file"
         ref={inpRef}
         hidden
@@ -42,7 +45,7 @@ export default function UploadButton({ label, imgData, setImgData }) {
         </svg>
         {label ? label : "Choose Avatar"}
       </Button>
-      <span className="font-medium">{imgData.name}</span>
+      <span className="font-medium">{imgData?.name}</span>
     </div>
   )
 }

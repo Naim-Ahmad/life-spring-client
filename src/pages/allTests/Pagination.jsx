@@ -1,22 +1,34 @@
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { Button, IconButton } from "@material-tailwind/react";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "../../config/axios.config";
 
-export default function Pagination({ state: setState }) {
+export default function Pagination({ setTests, tests: doc, date }) {
     const [active, setActive] = React.useState(1);
 
-    const [doc, setDoc] = useState(0)
+    // const [doc, setDoc] = useState(tests?.totalData)
+
+    // console.log(tests)
 
     // const doc = 20;
 
-    useEffect(() => {
-        axios.get('/testCount')
-            .then(res => {
-                console.log(res.data)
-                setDoc(res.data?.count)
-            })
-    }, [])
+    // useEffect(() => {
+    //     // console.log('count')
+    //     if (!date) {
+    //         console.log('test')
+    //         axios.get('/testCount')
+    //             .then(res => {
+    //                 // console.log(res.data)
+    //                 setDoc(res.data?.count)
+    //             })
+    //     } else {
+    //         axios.get(`/testCount?date=${date}`)
+    //             .then(res => {
+    //                 console.log(res.data)
+    //                 setDoc(res.data?.count)
+    //             })
+    //     }
+    // }, [tests.length, date])
 
     const pageButton = Math.ceil(doc / 10);
     // console.log(pageButton)
@@ -26,10 +38,12 @@ export default function Pagination({ state: setState }) {
         color: "gray",
         onClick: () => {
             setActive(index)
-            axios.get(`/getPageData?skip=${index - 1}`)
+
+            axios.get(`/getPageData?skip=${index - 1}${date ? '&date=' + date : ''}`)
                 .then(res => {
-                    setState(res.data)
+                    setTests(res.data)
                 })
+
         },
     });
 
@@ -37,20 +51,20 @@ export default function Pagination({ state: setState }) {
         if (active === 5) return;
         setActive(active + 1);
 
-        axios.get(`/getPageData?skip=${active}`)
-        .then(res => {
-            setState(res.data)
-        })
+        axios.get(`/getPageData?skip=${active}${date ? '&date=' + date : ''}`)
+            .then(res => {
+                setTests(res.data)
+            })
 
     };
 
     const prev = () => {
         if (active === 1) return;
         setActive(active - 1);
-        axios.get(`/getPageData?skip=${active - 2}`)
-        .then(res => {
-            setState(res.data)
-        })
+        axios.get(`/getPageData?skip=${active - 2}${date ? '&date=' + date : ''}`)
+            .then(res => {
+                setTests(res.data)
+            })
 
     };
 

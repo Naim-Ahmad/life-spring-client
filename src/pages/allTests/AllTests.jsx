@@ -11,7 +11,7 @@ import axios from "../../config/axios.config";
 import TestCard from "./TestCard";
 
 export default function AllTests() {
-  const [tests, setTests] = useState([])
+  const [tests, setTests] = useState({})
   const [searchDate, setSearchDate] = useState('')
 
   const { data, isPending, status } = useQuery({
@@ -74,16 +74,16 @@ export default function AllTests() {
           </form>
         </CardHeader>
 
-        {tests.length
+        {tests.tests?.length
           ? (<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 pb-16  content-center">
-            {tests.map((test) => (
+            {tests.tests?.map((test) => (
               <TestCard test={test} key={test._id} />
             ))}
           </div>) :
           (<div className="flex justify-center min-h-[50svh] ">
             <Typography className="mt-16 text-lg text-center md:text-2xl lg:text-3xl" variant="h2">No Service Found from {searchDate === '' ? 'Today' : new Date().toLocaleDateString()} , Please Select another Date.</Typography>
           </div>)}
-        <Pagination state={setTests} />
+        <Pagination setTests={setTests} tests={tests?.totalData} date={searchDate} />
       </Container>
     </main>
   );

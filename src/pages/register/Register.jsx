@@ -20,7 +20,7 @@ import UploadButton from "../../components/UploadButton";
 import axiosPublic from "../../config/axios.config";
 import useAuth from "../../hooks/useAuth";
 
-const IMAGE_HOSTING_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY
+export const IMAGE_HOSTING_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY
   }`;
 
 export default function Register() {
@@ -113,6 +113,7 @@ export default function Register() {
 
   const handleDistrict = (v)=> {
     setDistrict(v)
+    // console.log(v)
     const finedDistricts = districts.find(dist => dist.name.toLowerCase() === v.toLowerCase())
     const filteredSubDistricts = upazilas.filter(upazi=> upazi.district_id == finedDistricts.id)
     setUpazilas(filteredSubDistricts)
@@ -120,11 +121,12 @@ export default function Register() {
 
   const handleSubDistrict = (v)=> {
     setUpazila(v)
-    const finedSubDistricts = upazilas.find(dist => dist.name.toLowerCase() === v.toLowerCase())
-    // console.log(finedSubDistricts)
-    const finedDistricts = districts.filter(dis=> dis.id == finedSubDistricts.district_id)
-    setDistricts(finedDistricts)
-    // console.log(finedDistricts)
+    if(!district){
+      const finedSubDistricts = upazilas.find(dist => dist.name.toLowerCase() === v.toLowerCase())
+      // console.log(finedSubDistricts)
+      const finedDistricts = districts.filter(dis=> dis.id == finedSubDistricts.district_id)
+      setDistricts(finedDistricts)
+    }
 
   }
 

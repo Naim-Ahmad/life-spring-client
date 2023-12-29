@@ -17,6 +17,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import UploadButton from "../../../components/UploadButton";
 import useTests from "../../../hooks/tests/useTests";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionHeader from "../../shared/SectionHeader";
@@ -34,17 +35,19 @@ const timeSlots = [
     "04:00 PM",
     "05:00 PM",
     "06:00 PM",
-]; 
+];
 
-const IMAGE_HOSTING_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API_KEY
-    }`;
+import { IMAGE_HOSTING_URL } from '../../register/Register';
+
+// console.log(IMAGE_HOSTING_URL)
 
 export default function EditTest({ open, handleOpen, test }) {
+    const [imageData, setImgData] = useState({ name: test?.imageURL })
     const { handleSubmit, register } = useForm();
     const axiosSecure = useAxiosSecure()
     const [loading, setLoading] = useState(false)
-    const {refetch} = useTests()
-    // console.log(test)
+    const { refetch } = useTests()
+    // console.log(imageData)
 
     const handleEditTest = async (data) => {
         // console.log(data);
@@ -57,44 +60,78 @@ export default function EditTest({ open, handleOpen, test }) {
             }
         });
 
-        const imageData = { image: data?.imageURL[0] };
+        // console.log(imageData)
 
-        // console.log(imageData?.image)
-
+        // let res = null;
 
         try {
             setLoading(true)
-            if(imageData.image){
-                var res = await axios.post(IMAGE_HOSTING_URL, imageData, {
+            if (imageData?.type) {
+                console.log('if')
+                const res = await axios.post(IMAGE_HOSTING_URL, { image: imageData }, {
                     headers: {
                         "content-type": "multipart/form-data",
                     },
                 });
+
+                const testData = {
+                    testName: data?.testName,
+                    description: data?.description,
+                    price: data?.price,
+                    imageURL: res?.data?.data?.display_url,
+                    availableSlots,
+                    date: new Date(data?.date)
+                };
+
+
+                const updatedData = await axiosSecure.put(`/tests/${test?._id}`, testData)
+                handleOpen()
+                refetch()
+                if (updatedData?.data?._id) {
+                    Swal.fire({
+                        title: "Saved!",
+                        text: "Saved Test Info Successfully",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    setLoading(false)
+                }
+
+            }else{
+
+                console.log('else')
+
+                const testData = {
+                    testName: data?.testName,
+                    description: data?.description,
+                    price: data?.price,
+                    imageURL: test?.imageURL,
+                    availableSlots,
+                    date: new Date(data?.date)
+                };
+               
+    
+                const updatedData = await axiosSecure.put(`/tests/${test?._id}`, testData)
+                handleOpen()
+                refetch()
+                if (updatedData?.data?._id) {
+                    Swal.fire({
+                        title: "Saved!",
+                        text: "Saved Test Info Successfully",
+                        icon: "success",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                    setLoading(false)
+                }
             }
 
-            const testData = {
-                testName: data?.testName,
-                description: data?.description,
-                price: data?.price,
-                imageURL: imageData.image ? res.data?.data?.display_url: test?.imageURL,
-                availableSlots,
-                date: new Date(data?.date)
-            };
-            //   console.log(testData)
+            // console.log(imageData?.type)
 
-            const updatedData = await axiosSecure.put(`/tests/${test?._id}`, testData)
-            handleOpen()
-            refetch()
-            if (updatedData?.data?._id) {
-                Swal.fire({
-                    title: "Saved!",
-                    text: "Saved Test Info Successfully",
-                    icon: "success",
-                    showConfirmButton: false,
-                    timer: 2000
-                });
-                setLoading(false)
-            }
+            // console.log(res)
+
+
         } catch (error) {
             console.log(error);
             toast.error(error.message);
@@ -107,17 +144,17 @@ export default function EditTest({ open, handleOpen, test }) {
             size="lg"
             open={open}
             handler={handleOpen}
-            className="bg-transparent shadow-none"
+            className="bg-transparent shadow-none h-[90svh] overflow-y-scroll"
         >
 
             <Card>
                 <CardBody>
-                    <SectionHeader title="" description={<span>Add a <span className="text-green-500">Service</span></span>} />
+                    <SectionHeader title="" description={<span>Edit the <span className="text-green-500">Service</span></span>} />
                     <form
-                        className="grid grid-cols-2 gap-6 w-2/3 mx-auto"
+                        className="grid lg:grid-cols-2 gap-6  mx-auto"
                         onSubmit={handleSubmit(handleEditTest)}
                     >
-                        <div>
+                        <div className="col-span-2 lg:col-auto">
                             <div className="mb-12">
                                 <Input
                                     variant="static"
@@ -127,7 +164,6 @@ export default function EditTest({ open, handleOpen, test }) {
                                 />
                             </div>
 
-                           
                             <div className="mb-12">
                                 <Input
                                     variant="static"
@@ -143,30 +179,13 @@ export default function EditTest({ open, handleOpen, test }) {
                                     type="date"
                                     label="Date"
                                     defaultValue={test?.date}
-                                    value={test?.date}
+
                                     {...register("date")}
                                 />
                             </div>
-                            <div className="">
-                                {/* <Button variant="gradient" className="flex items-center gap-3">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth={2}
-                                        stroke="currentColor"
-                                        className="h-5 w-5"
-                                    >
-                                        <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"
-                                        />
-                                    </svg>
-                                    Upload Files
-                                    
-                                    </Button> */}
-                                <input {...register("imageURL")} type="file" accept="image/*" />
+                            <div className="col-span-2 lg:col-auto">
+                                <UploadButton label="Choose Image" imgData={imageData} setImgData={setImgData} />
+                                {/* <input {...register("imageURL")} type="file" accept="image/*" /> */}
                             </div>
                         </div>
 
@@ -175,7 +194,7 @@ export default function EditTest({ open, handleOpen, test }) {
                             =====================================
                         */}
 
-                        <div className="relative">
+                        <div className="relative col-span-2 lg:col-auto">
                             <div className="">
                                 <Typography variant="h6" color="blue-gray" className="">
                                     Available Time Slots
@@ -212,7 +231,7 @@ export default function EditTest({ open, handleOpen, test }) {
 
                         <div className="col-span-2">
                             <Textarea
-                            defaultValue={test?.description}
+                                defaultValue={test?.description}
                                 label="Test Description"
                                 {...register("description")}
                             />
